@@ -1,0 +1,3451 @@
+%	\iffalse meta-comment
+%
+%	Copyright (C) 2020 by Brian W. Mulligan <bwmulligan@astronaos.com>
+% -----------------------------------------------------------
+%
+% This file may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3c of this license
+% or (at your option) any later version. The latest version of this
+% license is in:
+%
+% http://www.latex-project.org/lppl.txt
+%
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2006/05/20 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{physshape.dtx}
+%<package>\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+%<package> \ProvidesPackage{physshape}
+%<package>
+	[2020/01/22 v1.0 Physics and astronomy shape package]
+%<package>\RequirePackage{tikz}
+%<package>\ProcessOptions\relax
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{tikz}
+\usepackage{physshape}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+%%\OnlyDescription
+\begin{document}
+\DocInput{physshape.dtx}
+\PrintChanges
+\PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \changes{v1.0}{2020/01/22}{Initial version}
+%
+% \GetFileInfo{physsymb.dtx}
+%
+% \DoNotIndex{\newcommand,\newenvironment,\DeclareRobustCommand,\pgfdeclareshape,\savedanchor,\newdimen,\pgfextractx,\pgfpointorigin,\advance,\wd,dp,\ht,\pgfnodeparttextbox,\pgfpoint,\anchor,\anchorborder,\@tempdimxa,\@tempdimya,\pgf@x,\pgf@y,\pgfpointborderrectangle,\pgfpointborderellipse,\backgroundpath,\forgroundpath,\pgfpathmoveto,\pgfpathlineto,\pgfpatharcto,\pgfpathsine,\pgfpathcssine,\pgfpathcircle,\colorlet,\pgfshadepath,\pgfusepath,\pgfsetfillcolor,\pgfsetstrokecolor,\pgfsetcolor,\pgftext,\pgfscope,\endpgfscope,\pgfpathclose,\pgfsetlinewidth,\color,\tiny,\small,\footnotesize,\left,\right,\textbf,\mathrm}
+%
+%
+% \title{The \textsf{physshape} package\thanks{This document corresponds to \textsf{physshape}~\fileversion, dated \filedate.}}
+% \author{Brian W. Mulligan \\ \texttt{bwmulligan@astronaos.com}}
+%
+% \maketitle
+%
+% \section{Introduction}
+%
+% 
+
+%
+% This package consists of several tikz / pgf shapes to be used in physics and astronomy classes or documents. The package developed out of a physics class that I was teaching wherein I wanted to be able to use tikz to draw circuits in a relatively straghttforward and easy way. In part, I didn't like the appearance of the shapes in the Circuit library, and I also didn't find existing shapes for most of the circuit elements that I have provided here, e.g. cells, transformer, etc. I've added additional, non-circuit symbols on an as-needed basis for use in my slides and handouts for students.
+%
+%
+
+%
+% \section{Usage}
+%
+% In this section I will show and describe the shapes provided by this package. 
+% It is separated into two sections: shapes, and macros. 
+% The macros are a somewhat convenient way of drawing several of the shapes.
+%
+% \subsection{shapes}
+% \subsubsection{Circuit Symbols: Cells}
+%
+% \DescribeMacro{cellVU}
+% The |cellVU| shape is a cell with vertical orientation and + terminal upward
+%
+% \begin{figure}[!h]
+% \begin{center}\begin{tikzpicture}
+% 	\node[black, line width=0.25mm, label={[black] above:cellVU}, cellVU] (n1) at (0,0) { };
+%   \fill[blue] (n1.west) circle (0.05cm) node[right] {west};
+%   \fill[blue] (n1.east) circle (0.05cm) node[left] {east};
+%   \fill[red] (n1.center) circle (0.05cm) node[below] {center};
+% \end{center}\end{tikzpicture}
+% \caption{The cellVU shape}
+% \end{figure}
+%
+% The figure shows the cellVU shape with the available anchors. A text anchor is also defined (not shown). Labels are recommended instead of using the node text. The code for the above figure is
+% \begin{verbatim}
+% 	\node[black, line width=0.25mm, label={[black] above:cellVU}, cellVU] (n1) at (0,0) { };
+%   \fill[blue] (n1.west) circle (0.05cm) node[right] {west};
+%   \fill[blue] (n1.east) circle (0.05cm) node[left] {east};
+%   \fill[red] (n1.center) circle (0.05cm) node[below] {center};
+% \end{verbatim}
+%
+% \StopEventually{}
+%
+% \section{Implementation}
+%
+\makeatletter
+%
+% \begin{macro}{cellVU}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: cellVU
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |cellVU| shape is a cell with vertical orientation and + terminal upward
+%
+%    \begin{macrocode}
+\pgfdeclareshape{cellVU}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.35cm%
+\advance\ancy by -.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{west}{\westpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.3cm}{0.10cm}}
+}
+\backgroundpath{
+%
+\pgfpathmoveto{\pgfpoint{-0.2cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.2cm}{-0.05cm}}
+%
+\pgfpathmoveto{\pgfpoint{-0.3cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.3cm}{0.05cm}}
+%
+\pgfpathmoveto{\pgfpoint{0.0cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{-0.10cm}}
+%
+\pgfpathmoveto{\pgfpoint{0.0cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.10cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{cellVD}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Cell (VD)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |cellVD| shape is a cell with vertical orientation and + terminal downward
+%
+%    \begin{macrocode}
+\pgfdeclareshape{cellVD}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.35cm%
+\advance\ancy by -.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{west}{\westpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.3cm}{0.10cm}}
+}
+\backgroundpath{
+%
+\pgfpathmoveto{\pgfpoint{-0.3cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.3cm}{-0.05cm}}
+%
+\pgfpathmoveto{\pgfpoint{-0.2cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.2cm}{0.05cm}}
+%
+\pgfpathmoveto{\pgfpoint{0.0cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{-0.10cm}}
+%
+\pgfpathmoveto{\pgfpoint{0.0cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.10cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{cellHR}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Cell (HR)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |cellHR| shape is a cell with horizontal orientation and + terminal rightward
+%
+%    \begin{macrocode}
+\pgfdeclareshape{cellHR}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.35cm%
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\advance\ancx by -.5\wd\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{west}{\westpoint}
+\anchor{east}{\eastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.3cm}}
+}
+\backgroundpath{
+%
+\pgfpathmoveto{\pgfpoint{-0.05cm}{-0.2cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{0.2cm}}
+%
+\pgfpathmoveto{\pgfpoint{0.05cm}{-0.3cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{0.3cm}}
+%
+\pgfpathmoveto{\pgfpoint{-0.05cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.10cm}{0.0cm}}
+%
+\pgfpathmoveto{\pgfpoint{0.05cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{0.10cm}{0.0cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{cellHL}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Cell (HL)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |cellHL| shape is a cell with horizontal orientation and + terminal leftward
+%
+%    \begin{macrocode}
+\pgfdeclareshape{cellHL}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.35cm%
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\advance\ancx by -.5\wd\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{west}{\westpoint}
+\anchor{east}{\eastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.10cm}{0.30cm}}
+}
+\backgroundpath{
+%%
+\pgfpathmoveto{\pgfpoint{-0.05cm}{-0.3cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{0.3cm}}
+%%
+\pgfpathmoveto{\pgfpoint{0.05cm}{-0.2cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{0.2cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-0.05cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.10cm}{0.0cm}}
+%%
+\pgfpathmoveto{\pgfpoint{0.05cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{0.10cm}{0.0cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{capacitorV}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Capacitor (V)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |capacitorV| shape is a capacitor with vertical orientation.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{capacitorV}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.35cm%
+\advance\ancy by -.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.3cm}{0.10cm}}
+}
+\backgroundpath{
+%% top plate
+\pgfpathmoveto{\pgfpoint{-0.3cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.3cm}{-0.05cm}}
+%% bottom plate
+\pgfpathmoveto{\pgfpoint{-0.3cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.3cm}{0.05cm}}
+%% top lead
+\pgfpathmoveto{\pgfpoint{0.0cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{-0.10cm}}
+%% bottom lead
+\pgfpathmoveto{\pgfpoint{0.0cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.10cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{capacitorH}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Capacitor (H)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |capacitorH| shape is a capacitor with horizontal orientation.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{capacitorH}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.35cm%
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\advance\ancx by -.5\wd\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.1cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{west}{\westpoint}
+\anchor{east}{\eastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.30cm}}
+}
+\backgroundpath{
+%% left plate
+\pgfpathmoveto{\pgfpoint{-0.05cm}{-0.3cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{0.3cm}}
+%% right plate
+\pgfpathmoveto{\pgfpoint{0.05cm}{-0.3cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{0.3cm}}
+%% left lead
+\pgfpathmoveto{\pgfpoint{-0.05cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.10cm}{0.0cm}}
+%% right lead
+\pgfpathmoveto{\pgfpoint{0.05cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{0.10cm}{0.0cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{resistorH}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Resistor (H)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |resistorH| shape is a resistor with horizontal orientation.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{resistorH}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.10cm%
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\advance\ancx by -.5\wd\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.20cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.20cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{west}{\westpoint}
+\anchor{east}{\eastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.2cm}{0.05cm}}
+}
+\backgroundpath{
+%%
+\pgfpathmoveto{\pgfpoint{-0.20cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.15cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.125cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{-0.075cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{-0.025cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.025cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.075cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.125cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.15cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{0.20cm}{0.0cm}}
+%%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{resistorV}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Resistor (V)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |resistorV| shape is a resistor with vertical orientation.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{resistorV}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.10cm%
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.20cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.20cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.05cm}{0.2cm}}
+}
+\backgroundpath{
+%%
+\pgfpathmoveto{\pgfpoint{0.0cm}{-0.20cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{-0.15cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{-0.125cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{-0.075cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{-0.025cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{0.025cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{0.075cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{0.125cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.15cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.20cm}}
+%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{inductorH}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Inductor (H)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |inductorH| shape is an inductor with horizontal orientation.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{inductorH}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.05cm%
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\advance\ancx by -.5\wd\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.35cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.35cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{west}{\westpoint}
+\anchor{east}{\eastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.35cm}{0.1cm}}
+}
+\backgroundpath{
+%%
+\pgfpathmoveto{\pgfpoint{0.35cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{0.3cm}{0.0cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.1cm}{0.0cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{-0.1cm}{0.0cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{-0.3cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.35cm}{0.0cm}}
+%%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{inductorV}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Inductor (V)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |inductorV| shape is an inductor with vertical orientation.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{inductorV}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.15cm%
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.35cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.35cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.35cm}}
+}
+\backgroundpath{
+%%
+\pgfpathmoveto{\pgfpoint{0.0cm}{0.35cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.3cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{0.0cm}{0.1cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.0cm}{-0.1cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{0.0cm}{-0.3cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{-0.35cm}}
+%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{transformerH}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Transformer (H)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |transformerH| shape is an transformer with horizontal orientation (leads on the left and right).
+%
+%    \begin{macrocode}
+\pgfdeclareshape{transformerH}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.5\wd\pgfnodeparttextbox%
+\advance\ancy by -0.45cm
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.40cm%
+\advance\ancx by 0.35cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.40cm%
+\advance\ancx by 0.35cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.40cm%
+\advance\ancx by -0.35cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.40cm%
+\advance\ancx by -0.35cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{northeast}{\northeastpoint}
+\anchor{southeast}{\southeastpoint}
+\anchor{northwest}{\northwestpoint}
+\anchor{southwest}{\southwestpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.35cm}{0.40cm}}
+}
+\backgroundpath{
+%% right inductor
+\pgfpathmoveto{\pgfpoint{0.35cm}{0.40cm}}
+\pgfpathlineto{\pgfpoint{0.25cm}{0.40cm}}
+\pgfpathlineto{\pgfpoint{0.25cm}{0.3cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.15cm}{0.2cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.25cm}{0.1cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.15cm}{0.0cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.25cm}{-0.1cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.15cm}{-0.2cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.25cm}{-0.3cm}}
+\pgfpathlineto{\pgfpoint{0.25cm}{-0.40cm}}
+\pgfpathlineto{\pgfpoint{0.35cm}{-0.40cm}}
+%% left inductor
+\pgfpathmoveto{\pgfpoint{-0.35cm}{0.40cm}}
+\pgfpathlineto{\pgfpoint{-0.25cm}{0.40cm}}
+\pgfpathlineto{\pgfpoint{-0.25cm}{0.3cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.15cm}{0.2cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.25cm}{0.1cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.15cm}{0.0cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.25cm}{-0.1cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.15cm}{-0.2cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.25cm}{-0.3cm}}
+\pgfpathlineto{\pgfpoint{-0.25cm}{-0.40cm}}
+\pgfpathlineto{\pgfpoint{-0.35cm}{-0.40cm}}
+%% left plate
+\pgfpathmoveto{\pgfpoint{-0.05cm}{0.2cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{-0.2cm}}
+%% right plate
+\pgfpathmoveto{\pgfpoint{0.05cm}{0.2cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{-0.2cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{transformerV}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Transformer (V)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |transformerV| shape is a transformer with vertical orientation (leads on top and bottom).
+%
+%    \begin{macrocode}
+\pgfdeclareshape{transformerV}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.40cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.35cm%
+\advance\ancx by 0.40cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.35cm%
+\advance\ancx by 0.40cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.35cm%
+\advance\ancx by -0.40cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.35cm%
+\advance\ancx by -0.40cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{northeast}{\northeastpoint}
+\anchor{southeast}{\southeastpoint}
+\anchor{northwest}{\northwestpoint}
+\anchor{southwest}{\southwestpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.40cm}{0.35cm}}
+}
+\backgroundpath{
+%% top inductor
+\pgfpathmoveto{\pgfpoint{0.40cm}{0.35cm}}
+\pgfpathlineto{\pgfpoint{0.40cm}{0.25cm}}
+\pgfpathlineto{\pgfpoint{0.3cm}{0.25cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{0.2cm}{0.15cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{0.1cm}{0.25cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{0.0cm}{0.15cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.1cm}{0.25cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.2cm}{0.15cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{-0.3cm}{0.25cm}}
+\pgfpathlineto{\pgfpoint{-0.40cm}{0.25cm}}
+\pgfpathlineto{\pgfpoint{-0.40cm}{0.35cm}}
+%% bottom inductor
+\pgfpathmoveto{\pgfpoint{0.40cm}{-0.35cm}}
+\pgfpathlineto{\pgfpoint{0.40cm}{-0.25cm}}
+\pgfpathlineto{\pgfpoint{0.3cm}{-0.25cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.2cm}{-0.15cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.1cm}{-0.25cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{0.0cm}{-0.15cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{-0.1cm}{-0.25cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{-0.2cm}{-0.15cm}}
+\pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{-0.3cm}{-0.25cm}}
+\pgfpathlineto{\pgfpoint{-0.40cm}{-0.25cm}}
+\pgfpathlineto{\pgfpoint{-0.40cm}{-0.35cm}}
+%% bottom plate
+\pgfpathmoveto{\pgfpoint{0.2cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{-0.2cm}{-0.05cm}}
+%% top plate
+\pgfpathmoveto{\pgfpoint{0.2cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{-0.2cm}{0.05cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{ACsource}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: AC Source
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |ACsource| shape is an alternate current source.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{ACsource}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.5\wd\pgfnodeparttextbox%
+\advance\ancy by -0.25cm
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+%%
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+}
+%%
+\backgroundpath{
+\pgfpathcircle{\pgfpointorigin}{0.25cm}%
+%% draw the AC symbol
+\pgfpathmoveto{\pgfpoint{-0.2cm}{0.0cm}}%
+\pgfpathsine{\pgfpoint{0.1cm}{0.1cm}}%
+\pgfpathcosine{\pgfpoint{0.1cm}{-0.1cm}}%
+\pgfpathsine{\pgfpoint{0.1cm}{-0.1cm}}%
+\pgfpathcosine{\pgfpoint{0.1cm}{0.1cm}}%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{DCsource}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: DC Source
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |DCsource| shape is a direct current source.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{DCsource}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.5\wd\pgfnodeparttextbox%
+\advance\ancy by -0.25cm
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+}
+%%
+\backgroundpath{
+\pgfpathcircle{\pgfpointorigin}{0.25cm}%
+%% long line (part of DC symbol)
+\pgfpathmoveto{\pgfpoint{-0.1cm}{0.05cm}}%
+\pgfpathlineto{\pgfpoint{0.1cm}{0.05cm}}%
+%% left short segment
+\pgfpathmoveto{\pgfpoint{-0.1cm}{-0.05cm}}%
+\pgfpathlineto{\pgfpoint{-0.06cm}{-0.05cm}}%
+%% center short segment
+\pgfpathmoveto{\pgfpoint{-0.02cm}{-0.05cm}}%
+\pgfpathlineto{\pgfpoint{0.02cm}{-0.05cm}}%
+%% right short segment
+\pgfpathmoveto{\pgfpoint{0.06cm}{-0.05cm}}%
+\pgfpathlineto{\pgfpoint{0.10cm}{-0.05cm}}%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{ammeter}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Ammeter
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |ammeter| shape is an ammeter.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{ammeter}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.5\wd\pgfnodeparttextbox%
+\advance\ancy by -0.25cm
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+%%
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+}
+%%
+\backgroundpath{
+\pgfpathcircle{\pgfpointorigin}{0.25cm}%
+%% get the current color to make sure that the text in the center matches the desired stroke color
+\colorlet{saved}{.}
+\pgftext{\color{saved} A}%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{voltmeter}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Voltmeter
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |voltmeter| shape is a voltmeter.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{voltmeter}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.5\wd\pgfnodeparttextbox%
+\advance\ancy by -0.25cm
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+%
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+}
+%%
+\backgroundpath{
+\pgfpathcircle{\pgfpointorigin}{0.25cm}%
+%% get the current color to make sure that the text in the center matches the desired stroke color
+\colorlet{saved}{.}
+\pgftext{\color{saved} V}%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchtwoH}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPST switch (H)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchtwoH| shape is a two position switch with oriented horizontally.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchtwoH}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.5\wd\pgfnodeparttextbox%
+\advance\ancy by -0.10cm
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.10cm}}
+}
+\backgroundpath{
+%% left contact
+\pgfpathcircle{\pgfpoint{-0.25cm}{0.00cm}}{0.05cm}%
+%% right contact
+\pgfpathcircle{\pgfpoint{0.25cm}{0.00cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{-0.20cm}{0.00cm}}
+\pgfpathlineto{\pgfpoint{0.2cm}{0.10cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchtwoV}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPST switch (V)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchtwoV| shape is a two position switch with oriented vertically.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchtwoV}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.10cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.10cm}{0.30cm}}
+}
+\backgroundpath{
+%% bottom contact
+\pgfpathcircle{\pgfpoint{0.0cm}{-0.25cm}}{0.05cm}%
+%% top contact
+\pgfpathcircle{\pgfpoint{0.0cm}{0.25cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{0.0cm}{-0.20cm}}
+\pgfpathlineto{\pgfpoint{-0.1cm}{0.2cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchthreeVDr}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPDT switch (V,D,r)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchthreeVDr| shape is a switch with three contacts, oriented vertically, with single contact at top and switch to the right
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchthreeVDr}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm
+\advance\ancy by 0.125cm
+\advance\ancy by 0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+
+\savedanchor\southeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.05cm%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.05cm%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{southeast}{\southeastpoint}
+\anchor{southwest}{\southwestpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+}
+\backgroundpath{
+%% top left contact
+\pgfpathcircle{\pgfpoint{-0.25cm}{0.0cm}}{0.05cm}%
+%% top right contact
+\pgfpathcircle{\pgfpoint{0.25cm}{0.0cm}}{0.05cm}%
+%% top contact
+\pgfpathcircle{\pgfpoint{0.0cm}{0.25cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{0.035cm}{0.215cm}}
+\pgfpathlineto{\pgfpoint{0.215cm}{0.035cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchthreeVDl}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPDT switch (V,D,l)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchthreeVDl| shape is a switch with three contacts, oriented vertically, with single contact at top and switch to the left.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchthreeVDl}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm
+\advance\ancy by 0.125cm
+\advance\ancy by 0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+
+\savedanchor\southeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.05cm%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.05cm%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{southeast}{\southeastpoint}
+\anchor{southwest}{\southwestpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+}
+\backgroundpath{
+%% left
+\pgfpathcircle{\pgfpoint{-0.25cm}{0.0cm}}{0.05cm}%
+%% right
+\pgfpathcircle{\pgfpoint{0.25cm}{0.0cm}}{0.05cm}%
+%% top
+\pgfpathcircle{\pgfpoint{0.0cm}{0.25cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{-0.035cm}{0.215cm}}
+\pgfpathlineto{\pgfpoint{-0.215cm}{0.035cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchthreeVUr}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPDT switch (V,U,r)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchthreeVUr| shape is a switch with three contacts, oriented vertically, with single contact at bottom and switch to the right.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchthreeVUr}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm
+\advance\ancy by -0.125cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.05cm%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.05cm%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{south}{\southpoint}
+\anchor{northeast}{\northeastpoint}
+\anchor{northwest}{\northwestpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+}
+\backgroundpath{
+%% left
+\pgfpathcircle{\pgfpoint{-0.25cm}{0.0cm}}{0.05cm}%
+%% right
+\pgfpathcircle{\pgfpoint{0.25cm}{0.0cm}}{0.05cm}%
+%% bottom
+\pgfpathcircle{\pgfpoint{0.0cm}{-0.25cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{0.035cm}{-0.215cm}}
+\pgfpathlineto{\pgfpoint{0.215cm}{-0.035cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchthreeVUl}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPDT switch (V,U,l)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchthreeVUl| shape is a switch with three contacts, oriented vertically, with single contact at bottom and switch to the left.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchthreeVUl}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm
+\advance\ancy by -0.125cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.05cm%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.05cm%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{south}{\southpoint}
+\anchor{northeast}{\northeastpoint}
+\anchor{northwest}{\northwestpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+}
+\backgroundpath{
+%% left
+\pgfpathcircle{\pgfpoint{-0.25cm}{0.0cm}}{0.05cm}%
+%% right
+\pgfpathcircle{\pgfpoint{0.25cm}{0.0cm}}{0.05cm}%
+%% bottom
+\pgfpathcircle{\pgfpoint{0.0cm}{-0.25cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{-0.035cm}{-0.215cm}}
+\pgfpathlineto{\pgfpoint{-0.215cm}{-0.035cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchthreeHRu}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPDT switch (H,R,u)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchthreeHRu| shape is a switch with three contacts, oriented horizontally, with single contact at left and switch upward.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchthreeHRu}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.25cm
+\advance\ancx by -\wd\pgfnodeparttextbox
+\advance\ancy by -0.25cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.05cm%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.05cm%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{west}{\westpoint}
+\anchor{northeast}{\northeastpoint}
+\anchor{southeast}{\southeastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+}
+\backgroundpath{
+%% left
+\pgfpathcircle{\pgfpoint{-0.25cm}{0.0cm}}{0.05cm}%
+%% bottom
+\pgfpathcircle{\pgfpoint{0.0cm}{-0.25cm}}{0.05cm}%
+%% top
+\pgfpathcircle{\pgfpoint{0.0cm}{0.25cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{-0.035cm}{0.215cm}}
+\pgfpathlineto{\pgfpoint{-0.215cm}{0.035cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchthreeHRd}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPDT switch (H,R,d)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchthreeHRd| shape is a switch with three contacts, oriented horizontally, with single contact at left and switch downward.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchthreeHRd}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.25cm
+\advance\ancx by -\wd\pgfnodeparttextbox
+\advance\ancy by -0.25cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.05cm%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southeastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.05cm%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{west}{\westpoint}
+\anchor{northeast}{\northeastpoint}
+\anchor{southeast}{\southeastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+}
+\backgroundpath{
+%%
+\pgfpathcircle{\pgfpoint{-0.25cm}{0.0cm}}{0.05cm}%
+%%
+\pgfpathcircle{\pgfpoint{0.0cm}{-0.25cm}}{0.05cm}%
+%%
+\pgfpathcircle{\pgfpoint{0.0cm}{0.25cm}}{0.05cm}%
+%%
+\pgfpathmoveto{\pgfpoint{-0.035cm}{-0.215cm}}
+\pgfpathlineto{\pgfpoint{-0.215cm}{-0.035cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchthreeHLu}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPDT switch (H,L,u)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchthreeHLu| shape is a switch with three contacts, oriented horizontally, with single contact at right and switch upward.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchthreeHLu}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm
+\advance\ancy by -0.25cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.05cm%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.05cm%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{east}{\eastpoint}
+\anchor{northwest}{\northeastpoint}
+\anchor{southwest}{\southeastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+}
+\backgroundpath{
+%% right
+\pgfpathcircle{\pgfpoint{0.25cm}{0.0cm}}{0.05cm}%
+%% bottom
+\pgfpathcircle{\pgfpoint{0.0cm}{-0.25cm}}{0.05cm}%
+%% top
+\pgfpathcircle{\pgfpoint{0.0cm}{0.25cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{0.035cm}{0.215cm}}
+\pgfpathlineto{\pgfpoint{0.215cm}{0.035cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{switchthreeHLd}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: SPDT switch (H,L,d)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |switchthreeHLd| shape is a switch with three contacts, oriented horizontally, with single contact at right and switch downward.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{switchthreeHLd}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm
+\advance\ancy by -0.25cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.05cm%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.30cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southwestpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.05cm%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{east}{\eastpoint}
+\anchor{northwest}{\northeastpoint}
+\anchor{southwest}{\southeastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+}
+\backgroundpath{
+%% right
+\pgfpathcircle{\pgfpoint{0.25cm}{0.0cm}}{0.05cm}%
+%% bottom
+\pgfpathcircle{\pgfpoint{0.0cm}{-0.25cm}}{0.05cm}%
+%% top
+\pgfpathcircle{\pgfpoint{0.0cm}{0.25cm}}{0.05cm}%
+%% switch
+\pgfpathmoveto{\pgfpoint{0.035cm}{-0.215cm}}
+\pgfpathlineto{\pgfpoint{0.215cm}{-0.035cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{vectIn}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Inward Vector
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |vectIn| shape is a vector going into the page
+%
+%    \begin{macrocode}
+\pgfdeclareshape{vectIn}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm
+\advance\ancy by -0.25cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.1cm}}
+}
+\backgroundpath{
+%
+\pgfpathcircle{\pgfpointorigin}{0.1cm}%
+%
+\pgfpathmoveto{\pgfpointpolar{45}{0.1cm}}
+\pgfpathlineto{\pgfpointpolar{225}{0.1cm}}
+%
+\pgfpathmoveto{\pgfpointpolar{135}{0.1cm}}
+\pgfpathlineto{\pgfpointpolar{315}{0.1cm}}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{vectIn}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Outward Vector
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |vectOut| shape is a vector going out of the page
+%
+%    \begin{macrocode}
+\pgfdeclareshape{vectOut}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm
+\advance\ancy by -0.25cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.1cm}}
+}
+\backgroundpath{
+%
+\pgfpathcircle{\pgfpointorigin}{0.1cm}%
+\pgfusepath{stroke}%
+%
+\pgfpathcircle{\pgfpointorigin}{0.025cm}%
+\pgfusepath{fill}%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{lightbulb}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Light bulb
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |lightbulb| shape is a line drawing of an incandescent light bulb
+%
+%    \begin{macrocode}
+\pgfdeclareshape{lightbulb}{
+\savedanchor\textpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\pgfpointorigin}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
+}
+\backgroundpath{
+%% bulb
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{244.3207}{-64.3207}{3.0cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpathclose
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-4.8cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-4.8cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-4.1cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-4.1cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-3.4cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-3.4cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-2.7cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-2.7cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-2.7cm}}
+%% filament?
+\pgfpathmoveto{\pgfpoint{-0.383cm}{-2.7cm}}
+\pgfpathlineto{\pgfpoint{-0.383cm}{-1.2835cm}}
+\pgfpathlineto{\pgfpoint{-1.4665cm}{0cm}}
+\pgfpathlineto{\pgfpoint{-1.4665cm}{0.2cm}}
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.3
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.6
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.9
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.2
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.5
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.8
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%2.1
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%2.4
+\pgfpatharc{180}{0}{0.25cm}%2.9
+\pgfpathlineto{\pgfpoint{1.4665cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{+0.383cm}{-1.2835cm}}
+\pgfpathlineto{\pgfpoint{+0.383cm}{-2.7cm}}
+\pgfusepath{draw}
+%% base of filament
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpathlineto{\pgfpoint{-0.2cm}{-6.1cm}}
+\pgfpathlineto{\pgfpoint{+0.2cm}{-6.1cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-5.5cm}}
+\pgfpathclose
+\pgfusepath{fill}
+%%
+\pgfpathmoveto{\pgfpoint{-0.2cm}{-6.1cm}}
+\pgfpatharc{180}{360}{0.2cm and 0.05cm}
+\pgfpathclose
+\pgfusepath{fill}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{lightbulbfilled}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Filled, unlit light bulb
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |lightbulbfilled| shape is a line drawing of an incandescent light bulb with the bulb filled in with a gray color
+%
+%    \begin{macrocode}
+\pgfdeclareshape{lightbulbfilled}{
+\savedanchor\textpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\pgfpointorigin}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
+}
+\backgroundpath{
+%%
+\pgfsetlinewidth{0.25mm}
+%%
+\pgfsetstrokecolor{gray}
+\pgfpathmoveto{\pgfpoint{-0.383cm}{-2.7cm}}
+\pgfpathlineto{\pgfpoint{-0.383cm}{-1.2835cm}}
+\pgfpathlineto{\pgfpoint{-1.4665cm}{0cm}}
+\pgfpathlineto{\pgfpoint{-1.4665cm}{0.2cm}}
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.3
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.6
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.9
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.2
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.5
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.8
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%2.1
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%2.4
+\pgfpatharc{180}{0}{0.25cm}%2.9
+\pgfpathlineto{\pgfpoint{1.4665cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{+0.383cm}{-1.2835cm}}
+\pgfpathlineto{\pgfpoint{+0.383cm}{-2.7cm}}
+\pgfusepath{draw}
+%%
+\pgfsetfillcolor{gray}
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpathlineto{\pgfpoint{1.3cm}{-2.7cm}}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpathclose
+\pgfusepath{fill}
+%%
+\pgfsetstrokecolor{black}
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-4.8cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-4.8cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-4.1cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-4.1cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-3.4cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-3.4cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-2.7cm}}
+\pgfusepath{draw}
+%%
+\pgfsetfillcolor{black}
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpathlineto{\pgfpoint{-0.2cm}{-6.1cm}}
+\pgfpathlineto{\pgfpoint{+0.2cm}{-6.1cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-5.5cm}}
+\pgfpathclose
+\pgfusepath{fill}
+%%
+\pgfsetfillcolor{gray}
+\pgfpathmoveto{\pgfpoint{-0.2cm}{-6.1cm}}
+\pgfpatharc{180}{360}{0.2cm and 0.05cm}
+\pgfpathclose
+\pgfusepath{fill}
+}
+\foregroundpath{
+%% the bulb itself
+\pgfsetfillcolor{white}
+\pgfsetfillopacity{0.40};
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-2.7cm}}
+\pgfpatharc{244.3207}{-64.3207}{3.0cm}
+\pgfusepath{fill}
+\pgfsetfillopacity{1.0};
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{lightbulbfilled}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Filled, lit light bulb
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |lightbulbfilled| shape is a line drawing of an incandescent light bulb with the bulb filled in with the current color
+%
+%    \begin{macrocode}
+\pgfdeclareshape{lightbulbfilledlit}{
+\savedanchor\textpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\pgfpointorigin}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
+}
+\backgroundpath{
+%%
+\pgfscope
+\pgfsetlinewidth{0.25mm}
+%%
+\pgfsetstrokecolor{gray}
+\pgfpathmoveto{\pgfpoint{-0.383cm}{-2.7cm}}
+\pgfpathlineto{\pgfpoint{-0.383cm}{-1.2835cm}}
+\pgfpathlineto{\pgfpoint{-1.4665cm}{0cm}}
+\pgfpathlineto{\pgfpoint{-1.4665cm}{0.2cm}}
+\pgfusepath{draw}
+%%
+\pgfsetstrokecolor{gray}
+\pgfpathmoveto{\pgfpoint{1.4665cm}{0.2cm}}
+\pgfpathlineto{\pgfpoint{1.4665cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{+0.383cm}{-1.2835cm}}
+\pgfpathlineto{\pgfpoint{+0.383cm}{-2.7cm}}
+\pgfusepath{draw}
+%%
+\pgfsetfillcolor{gray}
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpatharc{270}{90}{0.35cm}
+\pgfpathlineto{\pgfpoint{1.3cm}{-2.7cm}}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpatharc{90}{-90}{0.35cm}
+\pgfpathclose
+\pgfusepath{fill}
+%%
+\pgfsetstrokecolor{black}
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-4.8cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-4.8cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-4.1cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-4.1cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-3.4cm}}
+%%
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-3.4cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-2.7cm}}
+\pgfusepath{draw}
+%%
+\pgfsetfillcolor{black}
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
+\pgfpathlineto{\pgfpoint{-0.2cm}{-6.1cm}}
+\pgfpathlineto{\pgfpoint{+0.2cm}{-6.1cm}}
+\pgfpathlineto{\pgfpoint{1.3cm}{-5.5cm}}
+\pgfpathclose
+\pgfusepath{fill}
+%%
+\pgfsetfillcolor{gray}
+\pgfpathmoveto{\pgfpoint{-0.2cm}{-6.1cm}}
+\pgfpatharc{180}{360}{0.2cm and 0.05cm}
+\pgfpathclose
+\pgfusepath{fill}
+\endpgfscope
+}
+%%
+\foregroundpath{
+%%
+\pgfscope
+\pgfpathmoveto{\pgfpoint{-1.4665cm}{0.2cm}}
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.3
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.6
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%0.9
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.2
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.5
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%1.8
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%2.1
+\pgfpatharc{180}{0}{0.25cm}
+\pgfpatharc{0}{-180}{0.10cm}%2.4
+\pgfpatharc{180}{0}{0.25cm}%2.9
+\pgfusepath{draw}
+%%
+\pgfsetfillopacity{0.60};
+\pgfpathmoveto{\pgfpoint{-1.3cm}{-2.7cm}}
+\pgfpatharc{244.3207}{-64.3207}{3.0cm}
+\pgfusepath{fill}
+\endpgfscope
+%%
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{mark}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Mark (X)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |mark| shape is an "X" shape to mark a location.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{mark}{
+\savedanchor\textpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\pgfpointorigin}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+}
+\backgroundpath{
+%%
+\pgfscope
+\pgfsetlinewidth{0.25mm}
+\pgfpathmoveto{\pgfpoint{-0.25cm}{-0.25cm}}
+\pgfpathlineto{\pgfpoint{0.25cm}{0.25cm}}
+\pgfusepath{draw}
+%%
+\pgfpathmoveto{\pgfpoint{0.25cm}{-0.25cm}}
+\pgfpathlineto{\pgfpoint{-0.25cm}{0.25cm}}
+\pgfusepath{draw}
+%%
+\endpgfscope
+}
+\foregroundpath{ }
+}
+%    \end{macrocode}
+%
+%% \begin{macro}{handholding}
+%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Mark (X)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%
+%%
+%% The |handholding| shape is hand holding something
+%%
+%%    \begin{macrocode}
+%%\pgfdeclareshape{handholding}{
+%%\savedanchor\textpoint{%
+%%\newdimen\ancx%
+%%\newdimen\ancy%
+%%\pgfextractx{\ancx}{\pgfpointorigin}%
+%%\pgfextracty{\ancy}{\pgfpointorigin}%
+%%\pgfpoint{\ancx}{\ancy}%
+%%}
+%%\anchor{center}{\pgfpointorigin}
+%%\anchor{text}{\pgfpointorigin}
+%%\backgroundpath{
+%%%
+%%\pgfscope
+%%\pgfsetlinewidth{0.25mm}
+%%%
+%%\pgftransformshift{\pgfpointscale{-1}{\pgfpointorigin}}
+%%%
+%%\pgfpathmoveto{\pgfpoint{-0.25cm}{-0.25cm}}
+%%\pgfpathlineto{\pgfpoint{0.25cm}{0.25cm}}
+%%\pgfusepath{draw}
+%%%
+%%\pgfpathmoveto{\pgfpoint{0.25cm}{-0.25cm}}
+%%\pgfpathlineto{\pgfpoint{-0.25cm}{0.25cm}}
+%%\pgfusepath{draw}
+%%%
+%%\endpgfscope
+%%}
+%%\foregroundpath{ }
+%%}
+%%    \end{macrocode}
+%%
+% \begin{macro}{cannon}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Shape: Cannon
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |cannon| shape is a cannon on a pedestal, used for demonstrating Newtonian gravity and orbits
+%
+%    \begin{macrocode}
+\pgfdeclareshape{cannon}{
+\savedanchor\textpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 2.00cm
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -1.00cm
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{east}{\eastpoint}
+\anchor{south}{\southpoint}
+\anchor{text}{\pgfpointorigin}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{2.0cm}{1.0cm}}
+}
+\foregroundpath{
+%%
+\pgfscope
+\pgfsetlinewidth{0.25mm}
+%% The cannon
+\pgfsetfillcolor{black}
+\pgfpathmoveto{\pgfpoint{-1.0cm}{0.3cm}}
+\pgfpathlineto{\pgfpoint{2.0cm}{0.2cm}}
+\pgfpathlineto{\pgfpoint{2.0cm}{-0.2cm}}
+\pgfpathlineto{\pgfpoint{-1.0cm}{-0.3cm}}
+\pgfpathclose
+\pgfusepath{fill}
+%% a little ball on the back of the cannon
+\pgfpathcircle{\pgfpoint{-1.1cm}{0.0cm}}{0.1cm}
+\pgfusepath{fill}
+%% the pedestal
+\pgfsetfillcolor{gray}
+\pgfpathmoveto{\pgfpoint{-0.50cm}{-1.00cm}}
+\pgfpathlineto{\pgfpointorigin}
+\pgfpathlineto{\pgfpoint{0.50cm}{-1.00cm}}
+\pgfpathclose
+\pgfusepath{fill}
+%%
+\endpgfscope
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{eyeballleft}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Shape: Eyeball (L)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |eyeballleft| shape is an eye looking to the left, used for demonstrating an observer looking at an object or source of light. The color of the iris can be specified by the user
+%
+%    \begin{macrocode}
+\pgfdeclareshape{eyeballleft}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.25cm
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{1.0cm}{0.25cm}}
+}
+\backgroundpath{
+%% the iris in the user's color
+\pgfpathmoveto{\pgfpointorigin}
+\pgfpatharc{180}{135}{0.25cm}
+\pgfpatharc{45}{-45}{0.25cm}
+\pgfpatharc{225}{180}{0.25cm}
+\pgfpathclose
+\pgfusepath{fill}
+%%
+}
+\foregroundpath{
+\pgfsetfillcolor{black}
+\pgfpathmoveto{\pgfpointorigin}
+\pgfpatharc{180}{157.5}{0.25cm}
+\pgfpatharc{22.5}{-22.5}{0.25cm}
+\pgfpatharc{202.5}{180}{0.25cm}
+\pgfpathclose
+\pgfusepath{fill}
+%%
+\pgfsetstrokecolor{black}
+\pgfsetlinewidth{0.15mm}
+\pgfpathmoveto{\pgfpoint{-0.0075cm}{0}}
+\pgfpatharc{180}{120}{0.25cm}
+\pgfusepath{draw}
+%%
+\pgfpathmoveto{\pgfpoint{-0.0075cm}{0}}
+\pgfpatharc{180}{240}{0.25cm}
+\pgfusepath{draw}
+%%
+\pgfsetlinewidth{0.50mm}
+\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}{\pgfpointpolar{120}{0.25cm}}}
+\pgfpatharc{70}{75}{3cm}
+\pgfusepath{draw}
+%%
+\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}{\pgfpointpolar{120}{0.25cm}}}
+\pgfpatharc{70}{60}{3cm}
+\pgfusepath{draw}
+%%
+\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}{\pgfpointpolar{240}{0.25cm}}}
+\pgfpatharc{290}{285}{3cm}
+\pgfusepath{draw}
+%%
+\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}{\pgfpointpolar{240}{0.25cm}}}
+\pgfpatharc{290}{300}{3cm}
+\pgfusepath{draw}
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{sun}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Shape: Sun
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |sun| shape is an dark yellow circle with lighter yellow points around the edge
+%
+%    \begin{macrocode}
+\pgfdeclareshape{sun}{
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\pgfpointorigin}
+\backgroundpath{
+\pgfsetfillcolor{yellow!80!black}
+\pgfpathmoveto{\pgfpointpolar{90}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{90}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{108}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{117}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{126}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{135}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{144}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{153}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{162}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{171}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{180}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{189}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{198}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{207}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{216}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{225}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{234}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{243}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{252}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{261}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{270}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{279}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{288}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{297}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{306}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{315}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{324}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{333}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{342}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{351}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{360}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{  9}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{ 18}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{ 27}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{ 36}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{ 45}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{ 54}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{ 63}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{ 72}{0.5cm}}
+\pgfpathlineto{\pgfpointpolar{ 81}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{ 90}{0.5cm}}
+\pgfpathclose
+\pgfusepath{fill}
+\pgfsetfillcolor{yellow!70!black}
+\pgfpathcircle{\pgfpointorigin}{0.4cm}%
+\pgfusepath{fill}%
+}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.50cm}{0.50cm}}
+}
+\savedanchor\textpoint{% manual 1035
+    \pgf@x=-.5\wd\pgfnodeparttextbox % width of the box
+    \pgf@y=-.5\ht\pgfnodeparttextbox % height of the box
+  }%
+\savedanchor\northpoint{% manual 1035
+    \pgf@x=0.0pt % width of the box
+    \pgf@y=0.50cm % height of the box
+  }%
+\savedanchor\southpoint{% manual 1035
+    \pgf@x=0.0pt % width of the box
+    \pgf@y=-0.50cm % height of the box
+  }%
+\savedanchor\eastpoint{% manual 1035
+    \pgf@x=0.50cm % width of the box
+    \pgf@y=0.0pt % height of the box
+  }%
+\savedanchor\westpoint{% manual 1035
+    \pgf@x=-0.50cm % height of the box
+    \pgf@y=0.0pt % width of the box
+  }%
+\savedanchor\northeastpoint{% manual 1035
+    \pgf@x=0.50cm % width of the box
+    \pgf@y=0.50cm % height of the box
+  }%
+\savedanchor\southeastpoint{% manual 1035
+    \pgf@x=0.50cm % width of the box
+    \pgf@y=-0.50cm % height of the box
+  }%
+\savedanchor\northwestpoint{% manual 1035
+    \pgf@x=-0.50cm % width of the box
+    \pgf@y=0.50cm % height of the box
+  }%
+\savedanchor\southwestpoint{% manual 1035
+    \pgf@x=-0.50cm % height of the box
+    \pgf@y=-0.50cm % width of the box
+  }%
+\anchor{base}{\pgfpointorigin}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{south}{\southpoint}
+\anchor{north}{\northpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{south east}{\southeastpoint}
+\anchor{north east}{\northeastpoint}
+\anchor{south west}{\southwestpoint}
+\anchor{north west}{\northwestpoint}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{electron}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Shape: electron
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |electron| shape is an light cyan ball with a `-' in the middle
+%
+%    \begin{macrocode}
+\pgfdeclareshape{electron}{
+\nodeparts{text}%
+\savedanchor\textpoint{% manual 1035
+    \pgf@x=-.5\wd\pgfnodeparttextbox % width of the box
+    \pgf@y=-.5\ht\pgfnodeparttextbox % height of the box
+  }%
+\savedanchor\northpoint{% manual 1035
+    \pgf@x=0.0pt % width of the box
+    \pgf@y=0.25cm % height of the box
+  }%
+\savedanchor\southpoint{% manual 1035
+    \pgf@x=0.0pt % width of the box
+    \pgf@y=-0.25cm % height of the box
+  }%
+\savedanchor\eastpoint{% manual 1035
+    \pgf@x=0.25cm % width of the box
+    \pgf@y=0.0pt % height of the box
+  }%
+\savedanchor\westpoint{% manual 1035
+    \pgf@x=-0.25cm % height of the box
+    \pgf@y=0.0pt % width of the box
+  }%
+\savedanchor\northeastpoint{% manual 1035
+    \pgf@x=0.25cm % width of the box
+    \pgf@y=0.25cm % height of the box
+  }%
+\savedanchor\southeastpoint{% manual 1035
+    \pgf@x=0.25cm % width of the box
+    \pgf@y=-0.25cm % height of the box
+  }%
+\savedanchor\northwestpoint{% manual 1035
+    \pgf@x=-0.25cm % width of the box
+    \pgf@y=0.25cm % height of the box
+  }%
+\savedanchor\southwestpoint{% manual 1035
+    \pgf@x=-0.25cm % height of the box
+    \pgf@y=-0.25cm % width of the box
+  }%
+\anchor{base}{\pgfpointorigin}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{south}{\southpoint}
+\anchor{north}{\northpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{south east}{\southeastpoint}
+\anchor{north east}{\northeastpoint}
+\anchor{south west}{\southwestpoint}
+\anchor{north west}{\northwestpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+}
+\backgroundpath{
+\pgfscope
+\colorlet{tikz@ball}{cyan}
+\pgfpathcircle{\pgfpointorigin}{0.25cm}
+\pgfshadepath{ball}{0}
+\pgfusepath{}
+\pgftext{\color{black} \textbf{-}}
+\endpgfscope
+}
+}
+%    \end{macrocode}
+%
+% \begin{macro}{proton}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Shape: proton
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |proton| shape is a red ball with a `+' in the middle
+%
+%    \begin{macrocode}
+\pgfdeclareshape{proton}{
+\nodeparts{text}%
+\savedanchor\textpoint{% manual 1035
+    \pgf@x=-.5\wd\pgfnodeparttextbox % width of the box
+    \pgf@y=-.5\ht\pgfnodeparttextbox % height of the box
+  }%
+\savedanchor\northpoint{% manual 1035
+    \pgf@x=0.0pt % width of the box
+    \pgf@y=0.25cm % height of the box
+  }%
+\savedanchor\southpoint{% manual 1035
+    \pgf@x=0.0pt % width of the box
+    \pgf@y=-0.25cm % height of the box
+  }%
+\savedanchor\eastpoint{% manual 1035
+    \pgf@x=0.25cm % width of the box
+    \pgf@y=0.0pt % height of the box
+  }%
+\savedanchor\westpoint{% manual 1035
+    \pgf@x=-0.25cm % height of the box
+    \pgf@y=0.0pt % width of the box
+  }%
+\savedanchor\northeastpoint{% manual 1035
+    \pgf@x=0.25cm % width of the box
+    \pgf@y=0.25cm % height of the box
+  }%
+\savedanchor\southeastpoint{% manual 1035
+    \pgf@x=0.25cm % width of the box
+    \pgf@y=-0.25cm % height of the box
+  }%
+\savedanchor\northwestpoint{% manual 1035
+    \pgf@x=-0.25cm % width of the box
+    \pgf@y=0.25cm % height of the box
+  }%
+\savedanchor\southwestpoint{% manual 1035
+    \pgf@x=-0.25cm % height of the box
+    \pgf@y=-0.25cm % width of the box
+  }%
+\anchor{base}{\pgfpointorigin}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{south}{\southpoint}
+\anchor{north}{\northpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{south east}{\southeastpoint}
+\anchor{north east}{\northeastpoint}
+\anchor{south west}{\southwestpoint}
+\anchor{north west}{\northwestpoint}
+\anchorborder{%
+% Call a function that computes a border point. Since this
+% function will modify dimensions like \pgf@x, we must move them to
+% other dimensions.
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+}
+\backgroundpath{
+\pgfscope
+\pgfpathcircle{\pgfpointorigin}{0.25cm}
+%% color tikz@ball is used internally by tikz to color the ball. We therefore have to adjust that color
+\colorlet{tikz@ball}{red!90!white}
+\pgfshadepath{ball}{0}
+\pgfusepath{}
+\pgfsetstrokecolor{white}
+\pgfsetcolor{white}
+\pgftext{\color{white}\textbf{+}}
+\endpgfscope
+%
+}
+}
+%    \end{macrocode}
+%
+%
+%
+% \subsection{Macros}
+%
+%
+%
+% These are shorthand methods of drawing a subset of the symbols above. Intended mainly for compatabiltty with old documents that used these symbols before the shapes were defined.
+%
+% \begin{macro}{\gfxcapacitorH}
+% The |\gfxcapacitorH| macro draws a horizontally oriented capacitor (capacitorH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+% \begin{macro}{\gfxelectron}
+% The |\gfxelectron| macro draws an electron symbol (electron) at the position specified by \meta{position}. The position is not saved.
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxelectron}[1]{\node[electron] at (#1) { };}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxproton}
+% The |\gfxproton| macro draws a proton symbol (proton) at the position specified by \meta{position}. The position is not saved.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxproton}[1]{\node[proton] at (#1) { };}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxelectronrel}
+% The |\gfxelectronrel| macro draws an electron symbol (electron) at the position specified by \meta{position} and then offset by \meta<offset>. The position is not saved.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxelectronrel}[2]{\node[electron] at ($(#1)+(#2)$) { };}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxprotonrel}
+% The |\gfxprotonrel| macro draws a proton symbol (proton) at the position specified by \meta{position} and then offset by \meta<offset>. The position is not saved.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxprotonrel}[2]{\node[proton] at ($(#1)+(#2)$) { };}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxcapacitorH}
+% The |\gfxcapacitorH| macro draws a horizontally oriented capacitor (capacitorH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxcapacitorH}[2]{\node[draw, white, line width = 0.25mm, shape=capacitorH, label={[white] below:#2}] at (#1) { };}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxcapacitorV}
+% The |\gfxcapacitorV| macro draws a vertically oriented capacitor (capacitorV) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxcapacitorV}[2]{\node[draw, white, line width = 0.25mm, shape=capacitorV, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxcellHR}
+% The |\gfxcellHR| macro draws a cell oriented horizontally with the positive side to the right (cellHR) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxcellHR}[2]{\node[draw, white, line width = 0.25mm, shape=cellHR, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxcellHL}
+% The |\gfxcellHL| macro draws a cell oriented horizontally with the positive side to the left (cellHL) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxcellHL}[2]{\node[draw, white, line width = 0.25mm, shape=cellHL, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxcellVU}
+% The |\gfxcellVU| macro draws a cell oriented vertically with the positive side upward (cellVU) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxcellVU}[2]{\node[draw, white, line width = 0.25mm, shape=cellVU, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxcellVD}
+% The |\gfxcellVD| macro draws a cell oriented vertically with the positive side downward (cellVD) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxcellVD}[2]{\node[draw, white, line width = 0.25mm, shape=cellVD, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxresistorH}
+% The |\gfxresistorH| macro draws a horizontally oriented resistor (resistorH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxresistorH}[2]{\node[draw, white, line width = 0.25mm, shape=resistorH, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxresistorV}
+% The |\gfxresistorV| macro draws a vertically oriented resistor (resistorV) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxresistorV}[2]{\node[draw, white, line width = 0.25mm, shape=resistorV, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxinductorH}
+% The |\gfxinductorH| macro draws a horizontally oriented inductor (inductorH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxinductorH}[2]{\node[draw, white, line width = 0.25mm, shape=inductorH, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxinductorV}
+% The |\gfxinductorV| macro draws a vertically oriented inductor (inductorV) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxinductorV}[2]{\node[draw, white, line width = 0.25mm, shape=inductorV, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchtwoH}
+% The |\gfxswitchtwoH| macro draws a two position, horizontal switch (switchtwoH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchtwoH}[2]{\node[draw, white, line width = 0.25mm, shape=switchtwoH, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchtwoV}
+% The |\gfxswitchtwoV| macro draws a two position, vertical switch (switchtwoV) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchtwoV}[2]{\node[draw, white, line width = 0.25mm, shape=switchtwoV, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchthreeVDr}
+% The |\gfxswitchthreeVDr| macro draws a three position, vertical switch with the input on the top and switch initially right (switchthreeVDr) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchthreeVDr}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeVDr, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchthreeVDl}
+% The |\gfxswitchthreeVDl| macro draws a three position, vertical switch with the input on the top and switch initially left (switchthreeVDl) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchthreeVDl}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeVDl, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchthreeVUr}
+% The |\gfxswitchthreeVUr| macro draws a three position, vertical switch with the input on the bottom and switch initially right (switchthreeVUr) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchthreeVUr}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeVUr, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchthreeVUl}
+% The |\gfxswitchthreeVUl| macro draws a three position, vertical switch with the input on the bottom and switch initially left (switchthreeVUl) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchthreeVUl}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeVUl, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchthreeHRu}
+% The |\gfxswitchthreeHRu| macro draws a three position, horizontal switch with the input on the left and switch initially up (switchthreeHRu) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchthreeHRu}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeHRu, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchthreeHRd}
+% The |\gfxswitchthreeHRd| macro draws a three position, horizontal switch with the input on the left and switch initially down (switchthreeHRd) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchthreeHRd}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeHRd, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchthreeHLu}
+% The |\gfxswitchthreeHLu| macro draws a three position, horizontal switch with the input on the right and switch initially up (switchthreeHLu) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchthreeHLu}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeHLu, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxswitchthreeHLd}
+% The |\gfxswitchthreeHLd| macro draws a three position, horizontal switch with the input on the right and switch initially down (switchthreeHLd) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxswitchthreeHLd}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeHLd, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxvoltmeter}
+% The |\gfxvoltmeter| macro draws an voltmeter (voltmeter) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the voltmeter is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxvoltmeter}[2]{\node[white,line width=0.25mm,voltmeter, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxammeter}
+% The |\gfxammeter| macro draws an ammeter (ammeter) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the ammeter is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxammeter}[2]{\node[white,line width=0.25mm,ammmeter, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxdcsource}
+% The |\gfxdcsource| macro draws an DC source (DCsource) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the DC source is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxdcsource}[2]{\node[draw, white, line width = 0.25mm, shape=DCsource, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxacsource}
+% The |\gfxacsource| macro draws an AC source (ACsource) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the AC source is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxacsource}[2]{\node[draw, white, line width = 0.25mm, shape=ACsource, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxvectout}
+% The |\gfxvectin| macro draws ``outward'' vector at the location specified by \meta{position}.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxvectout}[1]{\node[yellow, line width = 0.25mm, shape=vectIn] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxvectin}
+% The |\gfxvectin| macro draws ``inward'' vector at the location specified by \meta{position}.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxvectin}[1]{\node[yellow, line width = 0.25mm, shape=vectOut] at (#1) {}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\gfxtransformerH}
+% The |\gfxtransformerH| macro draws a horizontal transformer (transformerH) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the transformer is not saved, so it can't be easily connected to a circuit when using this macro.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand{\gfxtransformerH}[2]{\node[draw, white, line width = 0.25mm, shape=transformerH, label={[white] below:#2}] at (#1) {};}
+%    \end{macrocode}
+% \end{macro}
+% \Finale
+\makeatother
+

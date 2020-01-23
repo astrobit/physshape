@@ -4,4 +4,9 @@
 *.idx
 *.glo
 *.dvi
+*.sty
+*.gls
+*.ind
+*.glo
+*.ilg
 

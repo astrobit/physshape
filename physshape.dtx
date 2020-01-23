@@ -27,7 +27,7 @@
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{tikz}
-\usepackage{physshape}
+%\usepackage{physshape}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -80,31 +80,31 @@
 %
 
 %
-% \section{Usage}
+% \section{Shapes}
 %
 % In this section I will show and describe the shapes provided by this package. 
-% It is separated into two sections: shapes, and macros. 
-% The macros are a somewhat convenient way of drawing several of the shapes.
+% It is separated into two sections: circuit symbols and other symbols.
 %
-% \subsection{shapes}
-% \subsubsection{Circuit Symbols: Cells}
+% \subsection{Circuit Symbols}
+% \subsubsection{Cells}
 %
 % \DescribeMacro{cellVU}
 % The |cellVU| shape is a cell with vertical orientation and + terminal upward
 %
-% \begin{figure}[!h]
-% \begin{center}\begin{tikzpicture}
-% 	\node[black, line width=0.25mm, label={[black] above:cellVU}, cellVU] (n1) at (0,0) { };
-%   \fill[blue] (n1.west) circle (0.05cm) node[right] {west};
-%   \fill[blue] (n1.east) circle (0.05cm) node[left] {east};
-%   \fill[red] (n1.center) circle (0.05cm) node[below] {center};
-% \end{center}\end{tikzpicture}
-% \caption{The cellVU shape}
-% \end{figure}
+% ^^A \begin{figure}[!h]
+% ^^A \begin{center}\begin{tikzpicture}
+% ^^A 	\node[black, line width=0.25mm, label={[black] above:cellVU}, cellVU] (n1) at (0,0) { };
+% ^^A   \fill[blue] (n1.west) circle (0.05cm) node[right] {west};
+% ^^A   \fill[blue] (n1.east) circle (0.05cm) node[left] {east};
+% ^^A   \fill[red] (n1.center) circle (0.05cm) node[below] {center};
+% ^^A \end{center}\end{tikzpicture}
+% ^^A \caption{The cellVU shape}
+% ^^A \end{figure}
 %
 % The figure shows the cellVU shape with the available anchors. A text anchor is also defined (not shown). Labels are recommended instead of using the node text. The code for the above figure is
 % \begin{verbatim}
-% 	\node[black, line width=0.25mm, label={[black] above:cellVU}, cellVU] (n1) at (0,0) { };
+% 	\node[black, line width=0.25mm, 
+%         label={[black] above:cellVU}, cellVU] (n1) at (0,0) { };
 %   \fill[blue] (n1.west) circle (0.05cm) node[right] {west};
 %   \fill[blue] (n1.east) circle (0.05cm) node[left] {east};
 %   \fill[red] (n1.center) circle (0.05cm) node[below] {center};
@@ -183,6 +183,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{cellVD}
 %
@@ -251,6 +252,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{cellHR}
 %
@@ -320,6 +322,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{cellHL}
 %
@@ -389,6 +392,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{capacitorV}
 %
@@ -457,6 +461,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{capacitorH}
 %
@@ -526,6 +531,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{resistorH}
 %
@@ -595,6 +601,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{resistorV}
 %
@@ -663,6 +670,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{inductorH}
 %
@@ -728,6 +736,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{inductorV}
 %
@@ -792,6 +801,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{transformerH}
 %
@@ -901,6 +911,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{transformerV}
 %
@@ -1009,6 +1020,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{ACsource}
 %
@@ -1093,6 +1105,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{DCsource}
 %
@@ -1182,6 +1195,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{ammeter}
 %
@@ -1263,6 +1277,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{voltmeter}
 %
@@ -1344,6 +1359,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchtwoH}
 %
@@ -1408,6 +1424,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchtwoV}
 %
@@ -1471,6 +1488,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchthreeVDr}
 %
@@ -1567,6 +1585,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchthreeVDl}
 %
@@ -1663,6 +1682,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchthreeVUr}
 %
@@ -1758,6 +1778,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchthreeVUl}
 %
@@ -1853,6 +1874,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchthreeHRu}
 %
@@ -1949,6 +1971,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchthreeHRd}
 %
@@ -2045,6 +2068,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchthreeHLu}
 %
@@ -2140,6 +2164,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{switchthreeHLd}
 %
@@ -2235,6 +2260,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{vectIn}
 %
@@ -2282,6 +2308,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{vectIn}
 %
@@ -2327,6 +2354,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{lightbulb}
 %
@@ -2428,6 +2456,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{lightbulbfilled}
 %
@@ -2544,6 +2573,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{lightbulbfilled}
 %
@@ -2671,6 +2701,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{mark}
 %
@@ -2720,13 +2751,15 @@
 \foregroundpath{ }
 }
 %    \end{macrocode}
+% \end{macro}
 %
+% \iffalse
 %% \begin{macro}{handholding}
 %%
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% Shape: Mark (X)
+%% Shape: Hand holding (something)
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -2766,6 +2799,8 @@
 %%}
 %%    \end{macrocode}
 %%
+%% \end{macro}
+%\fi
 % \begin{macro}{cannon}
 %
 %
@@ -2842,6 +2877,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{eyeballleft}
 %
@@ -2924,6 +2960,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{sun}
 %
@@ -3047,6 +3084,7 @@
 \anchor{north west}{\northwestpoint}
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{electron}
 %
@@ -3129,6 +3167,7 @@
 }
 }
 %    \end{macrocode}
+% \end{macro}
 %
 % \begin{macro}{proton}
 %
@@ -3218,7 +3257,7 @@
 }
 }
 %    \end{macrocode}
-%
+% \end{macro}
 %
 %
 % \subsection{Macros}
@@ -3226,9 +3265,6 @@
 %
 %
 % These are shorthand methods of drawing a subset of the symbols above. Intended mainly for compatabiltty with old documents that used these symbols before the shapes were defined.
-%
-% \begin{macro}{\gfxcapacitorH}
-% The |\gfxcapacitorH| macro draws a horizontally oriented capacitor (capacitorH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 % \begin{macro}{\gfxelectron}
 % The |\gfxelectron| macro draws an electron symbol (electron) at the position specified by \meta{position}. The position is not saved.

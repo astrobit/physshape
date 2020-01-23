@@ -18,20 +18,25 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{physshape.dtx}
+%</driver>
 %<package>\NeedsTeXFormat{LaTeX2e}[1994/06/01]
 %<package> \ProvidesPackage{physshape}
-%<package>
-	[2020/01/22 v1.0 Physics and astronomy shape package]
+%<*package>
+    [2020/01/22 v1.0 Physics and astronomy shape package]
+%</package>
 %<package>\RequirePackage{tikz}
 %<package>\ProcessOptions\relax
 %<*driver>
 \documentclass{ltxdoc}
+\usepackage{float}
 \usepackage{tikz}
-%\usepackage{physshape}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{physshape}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
-%%\OnlyDescription
+\OnlyDescription
 \begin{document}
 \DocInput{physshape.dtx}
 \PrintChanges
@@ -61,10 +66,73 @@
 % \changes{v1.0}{2020/01/22}{Initial version}
 %
 % \GetFileInfo{physsymb.dtx}
+% \def\fileversion{v1.0}
+% \def\filedate{2020/01/22}
 %
 % \DoNotIndex{\newcommand,\newenvironment,\DeclareRobustCommand,\pgfdeclareshape,\savedanchor,\newdimen,\pgfextractx,\pgfpointorigin,\advance,\wd,dp,\ht,\pgfnodeparttextbox,\pgfpoint,\anchor,\anchorborder,\@tempdimxa,\@tempdimya,\pgf@x,\pgf@y,\pgfpointborderrectangle,\pgfpointborderellipse,\backgroundpath,\forgroundpath,\pgfpathmoveto,\pgfpathlineto,\pgfpatharcto,\pgfpathsine,\pgfpathcssine,\pgfpathcircle,\colorlet,\pgfshadepath,\pgfusepath,\pgfsetfillcolor,\pgfsetstrokecolor,\pgfsetcolor,\pgftext,\pgfscope,\endpgfscope,\pgfpathclose,\pgfsetlinewidth,\color,\tiny,\small,\footnotesize,\left,\right,\textbf,\mathrm}
 %
-%
+%\newcommand{\NSmacro}[2]{% \DescribeMacro{#1}%
+% The |#1| shape is #2.%
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] above:#1}, #1, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.north) circle (0.05cm) node[right] {north};%
+%   \fill[blue] (n1.south) circle (0.05cm) node[left] {south};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:#1}The #1 shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:#1} shows the #1 shape with the available anchors. %
+% A text anchor is also defined (not shown) but should not be used. Labels are 
+% recommended instead of using the node text.% 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% {\small\texttt{\textbackslash node[black, line width=0.5mm,\\ \hphantom{XXXX}label=\{[black] above:#1\}, #1,\\ \hphantom{XXXX}scale=5.0] (n1) at (0,0) \{ \};\\ \textbackslash fill[blue] (n1.north) circle (0.05cm) node[right] {north};\\ \textbackslash fill[blue] (n1.south) circle (0.05cm) node[left] {south};\\ \textbackslash fill[red] (n1.center) circle (0.05cm) node[right] {center};}}%
+% \end{mdframed}%%
+%}
+%\newcommand{\NEWSmacro}[2]{% \DescribeMacro{#1}%
+% The |#1| shape is #2.%
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] 45:#1}, #1, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.north) circle (0.05cm) node[above] {north};%
+%   \fill[blue] (n1.south) circle (0.05cm) node[below] {south};%
+%   \fill[blue] (n1.east) circle (0.05cm) node[right] {east};%
+%   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[above] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:#1}The #1 shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:#1} shows the #1 shape with the available anchors. %
+% A text anchor is also defined (not shown) but should not be used. Labels are 
+% recommended instead of using the node text.% 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% {\small\texttt{\textbackslash node[black, line width=0.5mm,\\ \hphantom{XXXX}label=\{[black] 45:#1\}, #1,\\ \hphantom{XXXX}scale=5.0] (n1) at (0,0) \{ \};\\ \textbackslash fill[blue] (n1.north) circle (0.05cm) node[above] {north};\\ \textbackslash fill[blue] (n1.south) circle (0.05cm) node[below] {south};\\ \textbackslash fill[blue] (n1.east) circle (0.05cm) node[right] {east};\\ \textbackslash fill[blue] (n1.west) circle (0.05cm) node[left] {west};\\ \textbackslash fill[red] (n1.center) circle (0.05cm) node[above] {center};}}%
+% \end{mdframed}%%
+%}
+%\newcommand{\EWmacro}[2]{% \DescribeMacro{#1}%
+% The |#1| shape is #2.%
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] above:#1}, #1, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.east) circle (0.05cm) node[right] {east};%
+%   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[below] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:#1}The #1 shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:#1} shows the #1 shape with the available anchors. %
+% A text anchor is also defined (not shown) but should not be used. Labels are 
+% recommended instead of using the node text.% 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% {\small\texttt{\textbackslash node[black, line width=0.5mm,\\ \hphantom{XXXX}label=\{[black] above:#1\}, #1,\\ \hphantom{XXXX}scale=5.0] (n1) at (0,0) \{ \};\\ \textbackslash fill[blue] (n1.east) circle (0.05cm) node[right] {east};\\ \textbackslash fill[blue] (n1.west) circle (0.05cm) node[left] {west};\\ \textbackslash fill[red] (n1.center) circle (0.05cm) node[right] {center};}}%
+% \end{mdframed}%%
+%}%
 % \title{The \textsf{physshape} package\thanks{This document corresponds to \textsf{physshape}~\fileversion, dated \filedate.}}
 % \author{Brian W. Mulligan \\ \texttt{bwmulligan@astronaos.com}}
 %
@@ -75,10 +143,18 @@
 % 
 
 %
-% This package consists of several tikz / pgf shapes to be used in physics and astronomy classes or documents. The package developed out of a physics class that I was teaching wherein I wanted to be able to use tikz to draw circuits in a relatively straghttforward and easy way. In part, I didn't like the appearance of the shapes in the Circuit library, and I also didn't find existing shapes for most of the circuit elements that I have provided here, e.g. cells, transformer, etc. I've added additional, non-circuit symbols on an as-needed basis for use in my slides and handouts for students.
+% This package consists of several tikz / pgf shapes to be used in physics and 
+% astronomy classes or documents.
+% The package developed out of a physics class that I was teaching wherein I 
+% wanted to be able to use tikz to draw circuits in a relatively straghttforward
+% and easy way.
+% In part, I didn't like the appearance of the shapes in the Circuit library,
+% and I also didn't find existing shapes for most of the circuit elements that I
+%  have provided here, e.g. cells, transformer, etc.
+% I've added additional, non-circuit symbols on an as-needed basis for use in my
+% slides and handouts for students.
 %
 %
-
 %
 % \section{Shapes}
 %
@@ -88,28 +164,468 @@
 % \subsection{Circuit Symbols}
 % \subsubsection{Cells}
 %
-% \DescribeMacro{cellVU}
-% The |cellVU| shape is a cell with vertical orientation and + terminal upward
+% \NSmacro{cellVU}{a cell oriented vertically with the positive terminal upward}
+% \NSmacro{cellVD}{a cell oriented vertically with the positive terminal downward}
+% \EWmacro{cellHL}{a cell oriented horizontally with the positive terminal to the left}
+% \EWmacro{cellHR}{a cell oriented horizontally with the positive terminal to the right}
+% \subsubsection{Capacitors}
 %
-% ^^A \begin{figure}[!h]
-% ^^A \begin{center}\begin{tikzpicture}
-% ^^A 	\node[black, line width=0.25mm, label={[black] above:cellVU}, cellVU] (n1) at (0,0) { };
-% ^^A   \fill[blue] (n1.west) circle (0.05cm) node[right] {west};
-% ^^A   \fill[blue] (n1.east) circle (0.05cm) node[left] {east};
-% ^^A   \fill[red] (n1.center) circle (0.05cm) node[below] {center};
-% ^^A \end{center}\end{tikzpicture}
-% ^^A \caption{The cellVU shape}
-% ^^A \end{figure}
+% \NSmacro{capacitorV}{a capacitor oriented vertically}
+% \EWmacro{capacitorH}{a capacitor oriented horizontally}
 %
-% The figure shows the cellVU shape with the available anchors. A text anchor is also defined (not shown). Labels are recommended instead of using the node text. The code for the above figure is
+% \subsubsection{Resistors}
+%
+% \NSmacro{resistorV}{a resistor oriented vertically}
+% \EWmacro{resistorH}{a resistor oriented horizontally}
+%
+% \subsubsection{Inductors}
+%
+% \NSmacro{inductorV}{an inductor oriented vertically}
+% \EWmacro{inductorH}{an inductor oriented horizontally}
+%
+% \subsubsection{Sources}
+%
+% \NEWSmacro{ACsource}{an AC source}
+% \NEWSmacro{DCsource}{a DC source}
+%
+% \subsubsection{Meters}
+%
+% \NEWSmacro{voltmeter}{a voltmeter}
+% \NEWSmacro{ammeter}{an ammeter}
+%
+% \subsubsection{Transformers}
+%
+
+%\DescribeMacro{transformerH}%
+% The |transformerH| shape is drawing of a transsformer circuit symbol,
+% oriented horizontally.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] above:transformerH}, transformerH, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};%
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};%
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[red] (n1.center) circle (0.05cm) node[below] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:transformerH}The transformerH shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:transformerH} shows the transformerH shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
 % \begin{verbatim}
-% 	\node[black, line width=0.25mm, 
-%         label={[black] above:cellVU}, cellVU] (n1) at (0,0) { };
-%   \fill[blue] (n1.west) circle (0.05cm) node[right] {west};
-%   \fill[blue] (n1.east) circle (0.05cm) node[left] {east};
-%   \fill[red] (n1.center) circle (0.05cm) node[below] {center};
+% 	\node[black, line width=0.5mm,
+%       label={[black] above:transformerH}, transformerH, 
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};
 % \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{transformerV}%
+% The |transformerV| shape is drawing of a transsformer circuit symbol,
+% oriented vertically.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] above:transformerV}, transformerV, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};%
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};%
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:transformerV}The transformerV shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:transformerV} shows the transformerV shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] above:transformerV}, transformerV, 
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};
+% \end{verbatim}
+% \end{mdframed}
+
 %
+% \subsection{Switches}
+%
+
+% \NSmacro{switchtwoV}{a single contact (SPST) switch oriented vertically}
+% \EWmacro{switchtwoH}{a single contact (SPST) switch oriented horizontally}
+
+%\DescribeMacro{switchthreeVDr}%
+% The |switchthreeVDr| shape is drawing of two contact (SPDT) switch oriented 
+% vertically with the single contact upward and the swith to the right.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] 45:switchthreeVDr}, switchthreeVDr, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[above] {north};%
+%   \fill[red] (n1.center) circle (0.05cm) node[above] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:switchthreeVDr}The switchthreeVDr shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:switchthreeVDr} shows the switchthreeVDr shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] 45:switchthreeVDr}, switchthreeVDr, %
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[above] {north};%
+%   \fill[red] (n1.center) circle (0.05cm) node[above] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{switchthreeVDl}%
+% The |switchthreeVDr| shape is drawing of two contact (SPDT) switch oriented 
+% vertically with the single contact upward and the swith to the left.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] 45:switchthreeVDl}, switchthreeVDl, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[above] {north};%
+%   \fill[red] (n1.center) circle (0.05cm) node[above] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:switchthreeVDl}The switchthreeVDl shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:switchthreeVDl} shows the switchthreeVDr shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] 45:switchthreeVDl}, switchthreeVDl, %
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[above] {north};%
+%   \fill[red] (n1.center) circle (0.05cm) node[above] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+
+%\DescribeMacro{switchthreeVUr}%
+% The |switchthreeVUr| shape is drawing of two contact (SPDT) switch oriented 
+% vertically with the single contact downward and the switch to the right.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] -45:switchthreeVUr}, switchthreeVUr, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};%
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};%
+%   \fill[blue] (n1.south) circle (0.05cm) node[below] {south};%
+%   \fill[red] (n1.center) circle (0.05cm) node[below] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:switchthreeVUr}The switchthreeVUr shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:switchthreeVUr} shows the switchthreeVDr shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] -45:switchthreeVUr}, switchthreeVUr, %
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[below] {south};%
+%   \fill[red] (n1.center) circle (0.05cm) node[above] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{switchthreeVUl}%
+% The |switchthreeVUl| shape is drawing of two contact (SPDT) switch oriented 
+% vertically with the single contact downward and the switch to the left.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] -45:switchthreeVUl}, switchthreeVUl, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};%
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};%
+%   \fill[blue] (n1.south) circle (0.05cm) node[below] {south};%
+%   \fill[red] (n1.center) circle (0.05cm) node[below] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:switchthreeVUl}The switchthreeVUl shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:switchthreeVUl} shows the switchthreeVUl shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] -45:switchthreeVUl}, switchthreeVUl, %
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[below] {south};%
+%   \fill[red] (n1.center) circle (0.05cm) node[above] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{switchthreeHLu}%
+% The |switchthreeHLu| shape is drawing of two contact (SPDT) switch oriented 
+% horizontally with the single contact leftward and the switch to upward.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] -45:switchthreeHLu}, switchthreeHLu, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.east) circle (0.05cm) node[right] {east};%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:switchthreeHLu}The switchthreeHLu shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:switchthreeHLu} shows the switchthreeHLu shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] -45:switchthreeHLu}, switchthreeHLu, %
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[below] {south};%
+%   \fill[red] (n1.center) circle (0.05cm) node[above] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{switchthreeHLd}%
+% The |switchthreeHLd| shape is drawing of two contact (SPDT) switch oriented 
+% horizontally with the single contact leftward and the switch to upward.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] -45:switchthreeHLd}, switchthreeHLd, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.east) circle (0.05cm) node[right] {east};%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:switchthreeHLd}The switchthreeHLd shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:switchthreeHLd} shows the switchthreeHLd shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] -45:switchthreeHLd}, switchthreeHLd, %
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.northwest) circle (0.05cm) node[left] {northwest};%
+%   \fill[blue] (n1.southwest) circle (0.05cm) node[left] {southwest};%
+%   \fill[blue] (n1.east) circle (0.05cm) node[right] {east};%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{switchthreeHRu}%
+% The |switchthreeHRu| shape is drawing of two contact (SPDT) switch oriented 
+% horizontally with the single contact leftward and the switch to upward.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] -45:switchthreeHRu}, switchthreeHRu, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};%
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:switchthreeHRu}The switchthreeHRu shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:switchthreeHRu} shows the switchthreeHRu shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] -45:switchthreeHRu}, switchthreeHRu, %
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};%
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{switchthreeHRd}%
+% The |switchthreeHRd| shape is drawing of two contact (SPDT) switch oriented 
+% horizontally with the single contact leftward and the switch to upward.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] -45:switchthreeHRd}, switchthreeHRd, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};%
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:switchthreeHRd}The switchthreeHRd shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:switchthreeHRd} shows the switchthreeHRd shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,
+%       label={[black] -45:switchthreeHRd}, switchthreeHRd, %
+%       scale=5.0] (n1) at (0,0) { };
+%   \fill[blue] (n1.northeast) circle (0.05cm) node[right] {northeast};%
+%   \fill[blue] (n1.southeast) circle (0.05cm) node[right] {southeast};%
+%   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+
+%
+% \subsection{Other Symbols}
+%
+%\DescribeMacro{proton}%
+% The |sun| shape is drawing of a proton.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[label={[black] above:proton}, proton, %
+%       scale=1.0] (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:proton}The proton shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:proton} shows the proton shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[label={[black] above:proton}, proton, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{electron}%
+% The |sun| shape is drawing of a electron.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[label={[black] above:electron}, electron, %
+%       scale=1.0] (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:electron}The electron shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:electron} shows the electron shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[label={[black] above:electron}, electron, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{cannon}%
+% The |sun| shape is drawing of a cannon.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[label={[black] above:cannon}, cannon, %
+%       scale=1.0] (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:cannon}The cannon shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:cannon} shows the cannon shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[label={[black] above:cannon}, cannon, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+
+%\DescribeMacro{eyeballleft}%
+% The |sun| shape is drawing of an eye.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[blue, line width=0.5mm,% 
+%       label={[black] above:eyeballleft}, eyeballleft, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:eyeballleft}The leftward eyeball shape with a blue iris}%
+% \end{figure}%
+% Figure \ref{fig:gfx:eyeballleft} shows the eyeballleft shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[blue, line width=0.5mm,% 
+%       label={[black] above:eyeballleft}, eyeballleft, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
+% \end{verbatim}
+% \end{mdframed}
+
+%\DescribeMacro{sun}%
+% The |sun| shape is drawing of a star shape.
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] above:sun}, sun, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.north east) circle (0.05cm) node[above right] {north east};%
+%   \fill[blue] (n1.north west) circle (0.05cm) node[above left] {north west};%
+%   \fill[blue] (n1.south east) circle (0.05cm) node[above right] {south east};%
+%   \fill[blue] (n1.south west) circle (0.05cm) node[above left] {south west};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[below] {north};%
+%   \fill[blue] (n1.south) circle (0.05cm) node[above] {south};%
+%   \fill[blue] (n1.east) circle (0.05cm) node[right] {east};%
+%   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:sun}The sun shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:sun} shows the sun shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] above:sun}, sun, %
+%       scale=5.0] (n1) at (0,0) { };%
+%   \fill[blue] (n1.north east) circle (0.05cm)
+%       node[above right] {north east};%
+%   \fill[blue] (n1.north west) circle (0.05cm)
+%       node[above left] {north west};%
+%   \fill[blue] (n1.south east) circle (0.05cm)
+%       node[above right] {south east};%
+%   \fill[blue] (n1.south west) circle (0.05cm)
+%       node[above left] {south west};%
+%   \fill[blue] (n1.north) circle (0.05cm) node[below] {north};%
+%   \fill[blue] (n1.south) circle (0.05cm) node[above] {south};%
+%   \fill[blue] (n1.east) circle (0.05cm) node[right] {east};%
+%   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{verbatim}
+% \end{mdframed}
 % \StopEventually{}
 %
 % \section{Implementation}
@@ -158,28 +674,30 @@
 }
 \anchor{center}{\pgfpointorigin}
 \anchor{north}{\northpoint}
-\anchor{west}{\westpoint}
+\anchor{south}{\southpoint}
 \anchor{text}{\textpoint}
 \anchorborder{
 \newdimen\@tempdimxa%
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.3cm}{0.10cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.3cm}{0.10cm}}
 }
 \backgroundpath{
-%
+%%
 \pgfpathmoveto{\pgfpoint{-0.2cm}{-0.05cm}}
 \pgfpathlineto{\pgfpoint{0.2cm}{-0.05cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{-0.3cm}{0.05cm}}
 \pgfpathlineto{\pgfpoint{0.3cm}{0.05cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{0.0cm}{-0.05cm}}
 \pgfpathlineto{\pgfpoint{0.0cm}{-0.10cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{0.0cm}{0.05cm}}
 \pgfpathlineto{\pgfpoint{0.0cm}{0.10cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -227,28 +745,30 @@
 }
 \anchor{center}{\pgfpointorigin}
 \anchor{north}{\northpoint}
-\anchor{west}{\westpoint}
+\anchor{south}{\southpoint}
 \anchor{text}{\textpoint}
 \anchorborder{
 \newdimen\@tempdimxa%
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.3cm}{0.10cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.3cm}{0.10cm}}
 }
 \backgroundpath{
-%
+%%
 \pgfpathmoveto{\pgfpoint{-0.3cm}{-0.05cm}}
 \pgfpathlineto{\pgfpoint{0.3cm}{-0.05cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{-0.2cm}{0.05cm}}
 \pgfpathlineto{\pgfpoint{0.2cm}{0.05cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{0.0cm}{-0.05cm}}
 \pgfpathlineto{\pgfpoint{0.0cm}{-0.10cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{0.0cm}{0.05cm}}
 \pgfpathlineto{\pgfpoint{0.0cm}{0.10cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -265,7 +785,8 @@
 %
 %
 %
-% The |cellHR| shape is a cell with horizontal orientation and + terminal rightward
+% The |cellHR| shape is a cell with horizontal orientation and + terminal 
+% rightward
 %
 %    \begin{macrocode}
 \pgfdeclareshape{cellHR}{
@@ -304,21 +825,23 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.3cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.1cm}{0.3cm}}
 }
 \backgroundpath{
-%
+%%
 \pgfpathmoveto{\pgfpoint{-0.05cm}{-0.2cm}}
 \pgfpathlineto{\pgfpoint{-0.05cm}{0.2cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{0.05cm}{-0.3cm}}
 \pgfpathlineto{\pgfpoint{0.05cm}{0.3cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{-0.05cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{-0.10cm}{0.0cm}}
-%
+%%
 \pgfpathmoveto{\pgfpoint{0.05cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{0.10cm}{0.0cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -335,7 +858,8 @@
 %
 %
 %
-% The |cellHL| shape is a cell with horizontal orientation and + terminal leftward
+% The |cellHL| shape is a cell with horizontal orientation and + terminal 
+% leftward.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{cellHL}{
@@ -374,7 +898,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.10cm}{0.30cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.10cm}{0.30cm}}
 }
 \backgroundpath{
 %%
@@ -389,6 +914,7 @@
 %%
 \pgfpathmoveto{\pgfpoint{0.05cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{0.10cm}{0.0cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -443,7 +969,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.3cm}{0.10cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.3cm}{0.10cm}}
 }
 \backgroundpath{
 %% top plate
@@ -458,6 +985,7 @@
 %% bottom lead
 \pgfpathmoveto{\pgfpoint{0.0cm}{0.05cm}}
 \pgfpathlineto{\pgfpoint{0.0cm}{0.10cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -513,7 +1041,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.30cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.1cm}{0.30cm}}
 }
 \backgroundpath{
 %% left plate
@@ -528,6 +1057,7 @@
 %% right lead
 \pgfpathmoveto{\pgfpoint{0.05cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{0.10cm}{0.0cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -583,7 +1113,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.2cm}{0.05cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.2cm}{0.05cm}}
 }
 \backgroundpath{
 %%
@@ -598,6 +1129,7 @@
 \pgfpathlineto{\pgfpoint{0.15cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{0.20cm}{0.0cm}}
 %%
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -652,7 +1184,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.05cm}{0.2cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.05cm}{0.2cm}}
 }
 \backgroundpath{
 %%
@@ -667,6 +1200,7 @@
 \pgfpathlineto{\pgfpoint{0.0cm}{0.15cm}}
 \pgfpathlineto{\pgfpoint{0.0cm}{0.20cm}}
 %
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -722,7 +1256,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.35cm}{0.1cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.35cm}{0.1cm}}
 }
 \backgroundpath{
 %%
@@ -733,6 +1268,7 @@
 \pgfpatharcto{0.1cm}{0.1cm}{0}{0}{1}{\pgfpoint{-0.3cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{-0.35cm}{0.0cm}}
 %%
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -787,7 +1323,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.35cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.1cm}{0.35cm}}
 }
 \backgroundpath{
 %%
@@ -798,6 +1335,7 @@
 \pgfpatharcto{0.1cm}{0.1cm}{0}{0}{0}{\pgfpoint{0.0cm}{-0.3cm}}
 \pgfpathlineto{\pgfpoint{0.0cm}{-0.35cm}}
 %
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -814,7 +1352,8 @@
 %
 %
 %
-% The |transformerH| shape is an transformer with horizontal orientation (leads on the left and right).
+% The |transformerH| shape is an transformer with horizontal orientation (leads 
+% on the left and right).
 %
 %    \begin{macrocode}
 \pgfdeclareshape{transformerH}{
@@ -875,7 +1414,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.35cm}{0.40cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.35cm}{0.40cm}}
 }
 \backgroundpath{
 %% right inductor
@@ -908,6 +1448,7 @@
 %% right plate
 \pgfpathmoveto{\pgfpoint{0.05cm}{0.2cm}}
 \pgfpathlineto{\pgfpoint{0.05cm}{-0.2cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -924,7 +1465,8 @@
 %
 %
 %
-% The |transformerV| shape is a transformer with vertical orientation (leads on top and bottom).
+% The |transformerV| shape is a transformer with vertical orientation (leads on 
+% top and bottom).
 %
 %    \begin{macrocode}
 \pgfdeclareshape{transformerV}{
@@ -984,7 +1526,8 @@
 \newdimen\@tempdimya%
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.40cm}{0.35cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.40cm}{0.35cm}}
 }
 \backgroundpath{
 %% top inductor
@@ -1017,6 +1560,7 @@
 %% top plate
 \pgfpathmoveto{\pgfpoint{0.2cm}{0.05cm}}
 \pgfpathlineto{\pgfpoint{-0.2cm}{0.05cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1091,7 +1635,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
 }
 %%
 \backgroundpath{
@@ -1102,6 +1647,7 @@
 \pgfpathcosine{\pgfpoint{0.1cm}{-0.1cm}}%
 \pgfpathsine{\pgfpoint{0.1cm}{-0.1cm}}%
 \pgfpathcosine{\pgfpoint{0.1cm}{0.1cm}}%
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1175,7 +1721,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
 }
 %%
 \backgroundpath{
@@ -1192,6 +1739,7 @@
 %% right short segment
 \pgfpathmoveto{\pgfpoint{0.06cm}{-0.05cm}}%
 \pgfpathlineto{\pgfpoint{0.10cm}{-0.05cm}}%
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1266,14 +1814,19 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
 }
 %%
 \backgroundpath{
 \pgfpathcircle{\pgfpointorigin}{0.25cm}%
-%% get the current color to make sure that the text in the center matches the desired stroke color
+%    \end{macrocode}
+% get the current color to make sure that the text in the center  matches the 
+% desired stroke color
+%    \begin{macrocode}
 \colorlet{saved}{.}
 \pgftext{\color{saved} A}%
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1348,14 +1901,19 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
 }
 %%
 \backgroundpath{
 \pgfpathcircle{\pgfpointorigin}{0.25cm}%
-%% get the current color to make sure that the text in the center matches the desired stroke color
+%    \end{macrocode}
+% get the current color to make sure that the text in the center  matches the 
+% desired stroke color
+%    \begin{macrocode}
 \colorlet{saved}{.}
 \pgftext{\color{saved} V}%
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1411,7 +1969,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.10cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.10cm}}
 }
 \backgroundpath{
 %% left contact
@@ -1421,6 +1980,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{-0.20cm}{0.00cm}}
 \pgfpathlineto{\pgfpoint{0.2cm}{0.10cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1475,7 +2035,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.10cm}{0.30cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.10cm}{0.30cm}}
 }
 \backgroundpath{
 %% bottom contact
@@ -1485,6 +2046,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{0.0cm}{-0.20cm}}
 \pgfpathlineto{\pgfpoint{-0.1cm}{0.2cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1523,15 +2085,6 @@
 \advance\ancy by 0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\eastpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by 0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-
 \savedanchor\southeastpoint{%
 \newdimen\ancx%
 \newdimen\ancy%
@@ -1539,14 +2092,6 @@
 \pgfextracty{\ancy}{\pgfpointorigin}%
 \advance\ancy by -0.05cm%
 \advance\ancx by 0.25cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-\savedanchor\westpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\southwestpoint{%
@@ -1562,15 +2107,17 @@
 \anchor{north}{\northpoint}
 \anchor{southeast}{\southeastpoint}
 \anchor{southwest}{\southwestpoint}
-\anchor{east}{\eastpoint}
-\anchor{west}{\westpoint}
 \anchor{text}{\textpoint}
 \anchorborder{%
 \newdimen\@tempdimxa
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.30cm}} 
+%    \end{macrocode}
+% \emph{TODO}: need to better calculate the border
+%    \begin{macrocode}
 }
 \backgroundpath{
 %% top left contact
@@ -1582,6 +2129,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{0.035cm}{0.215cm}}
 \pgfpathlineto{\pgfpoint{0.215cm}{0.035cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1598,7 +2146,8 @@
 %
 %
 %
-% The |switchthreeVDl| shape is a switch with three contacts, oriented vertically, with single contact at top and switch to the left.
+% The |switchthreeVDl| shape is a switch with three contacts, oriented 
+% vertically, with single contact at top and switch to the left.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{switchthreeVDl}{
@@ -1620,15 +2169,6 @@
 \advance\ancy by 0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\eastpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by 0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-
 \savedanchor\southeastpoint{%
 \newdimen\ancx%
 \newdimen\ancy%
@@ -1636,14 +2176,6 @@
 \pgfextracty{\ancy}{\pgfpointorigin}%
 \advance\ancy by -0.05cm%
 \advance\ancx by 0.25cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-\savedanchor\westpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\southwestpoint{%
@@ -1659,15 +2191,17 @@
 \anchor{north}{\northpoint}
 \anchor{southeast}{\southeastpoint}
 \anchor{southwest}{\southwestpoint}
-\anchor{east}{\eastpoint}
-\anchor{west}{\westpoint}
 \anchor{text}{\textpoint}
 \anchorborder{%
 \newdimen\@tempdimxa
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.30cm}} 
+%    \end{macrocode}
+% \emph{TODO}: need to better calculate the border
+%    \begin{macrocode}
 }
 \backgroundpath{
 %% left
@@ -1679,6 +2213,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{-0.035cm}{0.215cm}}
 \pgfpathlineto{\pgfpoint{-0.215cm}{0.035cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1695,7 +2230,8 @@
 %
 %
 %
-% The |switchthreeVUr| shape is a switch with three contacts, oriented vertically, with single contact at bottom and switch to the right.
+% The |switchthreeVUr| shape is a switch with three contacts, oriented 
+% vertically, with single contact at bottom and switch to the right.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{switchthreeVUr}{
@@ -1717,14 +2253,6 @@
 \advance\ancy by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\eastpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by 0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
 \savedanchor\northeastpoint{%
 \newdimen\ancx%
 \newdimen\ancy%
@@ -1732,14 +2260,6 @@
 \pgfextracty{\ancy}{\pgfpointorigin}%
 \advance\ancy by 0.05cm%
 \advance\ancx by 0.25cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-\savedanchor\westpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\northwestpoint{%
@@ -1755,15 +2275,17 @@
 \anchor{south}{\southpoint}
 \anchor{northeast}{\northeastpoint}
 \anchor{northwest}{\northwestpoint}
-\anchor{east}{\eastpoint}
-\anchor{west}{\westpoint}
 \anchor{text}{\textpoint}
 \anchorborder{%
 \newdimen\@tempdimxa
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.30cm}} 
+%    \end{macrocode}
+% \emph{TODO}: need to better calculate the border
+%    \begin{macrocode}
 }
 \backgroundpath{
 %% left
@@ -1775,6 +2297,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{0.035cm}{-0.215cm}}
 \pgfpathlineto{\pgfpoint{0.215cm}{-0.035cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1791,7 +2314,8 @@
 %
 %
 %
-% The |switchthreeVUl| shape is a switch with three contacts, oriented vertically, with single contact at bottom and switch to the left.
+% The |switchthreeVUl| shape is a switch with three contacts, oriented 
+% vertically, with single contact at bottom and switch to the left.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{switchthreeVUl}{
@@ -1822,14 +2346,6 @@
 \advance\ancx by 0.25cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\eastpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by 0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
 \savedanchor\northwestpoint{%
 \newdimen\ancx%
 \newdimen\ancy%
@@ -1839,27 +2355,21 @@
 \advance\ancx by -0.25cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\westpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by -0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
 \anchor{center}{\pgfpointorigin}
 \anchor{south}{\southpoint}
 \anchor{northeast}{\northeastpoint}
 \anchor{northwest}{\northwestpoint}
-\anchor{east}{\eastpoint}
-\anchor{west}{\westpoint}
 \anchor{text}{\textpoint}
 \anchorborder{%
 \newdimen\@tempdimxa
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.30cm}} 
+%    \end{macrocode}
+% \emph{TODO}: need to better calculate the border
+%    \begin{macrocode}
 }
 \backgroundpath{
 %% left
@@ -1871,6 +2381,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{-0.035cm}{-0.215cm}}
 \pgfpathlineto{\pgfpoint{-0.215cm}{-0.035cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1887,7 +2398,8 @@
 %
 %
 %
-% The |switchthreeHRu| shape is a switch with three contacts, oriented horizontally, with single contact at left and switch upward.
+% The |switchthreeHRu| shape is a switch with three contacts, oriented 
+% horizontally, with single contact at left and switch upward.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{switchthreeHRu}{
@@ -1910,14 +2422,6 @@
 \advance\ancx by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\northpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by 0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
 \savedanchor\northeastpoint{%
 \newdimen\ancx%
 \newdimen\ancy%
@@ -1925,14 +2429,6 @@
 \pgfextracty{\ancy}{\pgfpointorigin}%
 \advance\ancx by 0.05cm%
 \advance\ancy by 0.25cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-\savedanchor\southpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\southeastpoint{%
@@ -1945,8 +2441,6 @@
 \pgfpoint{\ancx}{\ancy}%
 }
 \anchor{center}{\pgfpointorigin}
-\anchor{north}{\northpoint}
-\anchor{south}{\southpoint}
 \anchor{west}{\westpoint}
 \anchor{northeast}{\northeastpoint}
 \anchor{southeast}{\southeastpoint}
@@ -1956,7 +2450,11 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.30cm}} 
+%    \end{macrocode}
+% \emph{TODO}: need to better calculate the border
+%    \begin{macrocode}
 }
 \backgroundpath{
 %% left
@@ -1968,6 +2466,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{-0.035cm}{0.215cm}}
 \pgfpathlineto{\pgfpoint{-0.215cm}{0.035cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -1984,7 +2483,8 @@
 %
 %
 %
-% The |switchthreeHRd| shape is a switch with three contacts, oriented horizontally, with single contact at left and switch downward.
+% The |switchthreeHRd| shape is a switch with three contacts, oriented \
+% horizontally, with single contact at left and switch downward.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{switchthreeHRd}{
@@ -2007,14 +2507,6 @@
 \advance\ancx by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\northpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by 0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
 \savedanchor\northeastpoint{%
 \newdimen\ancx%
 \newdimen\ancy%
@@ -2022,14 +2514,6 @@
 \pgfextracty{\ancy}{\pgfpointorigin}%
 \advance\ancx by 0.05cm%
 \advance\ancy by 0.25cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-\savedanchor\southpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\southeastpoint{%
@@ -2042,8 +2526,6 @@
 \pgfpoint{\ancx}{\ancy}%
 }
 \anchor{center}{\pgfpointorigin}
-\anchor{north}{\northpoint}
-\anchor{south}{\southpoint}
 \anchor{west}{\westpoint}
 \anchor{northeast}{\northeastpoint}
 \anchor{southeast}{\southeastpoint}
@@ -2053,7 +2535,11 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.30cm}} 
+%    \end{macrocode}
+% \emph{TODO}: need to better calculate the border
+%    \begin{macrocode}
 }
 \backgroundpath{
 %%
@@ -2065,6 +2551,7 @@
 %%
 \pgfpathmoveto{\pgfpoint{-0.035cm}{-0.215cm}}
 \pgfpathlineto{\pgfpoint{-0.215cm}{-0.035cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -2081,7 +2568,8 @@
 %
 %
 %
-% The |switchthreeHLu| shape is a switch with three contacts, oriented horizontally, with single contact at right and switch upward.
+% The |switchthreeHLu| shape is a switch with three contacts, oriented 
+% horizontally, with single contact at right and switch upward.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{switchthreeHLu}{
@@ -2103,14 +2591,6 @@
 \advance\ancx by 0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\northpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by 0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
 \savedanchor\northwestpoint{%
 \newdimen\ancx%
 \newdimen\ancy%
@@ -2118,14 +2598,6 @@
 \pgfextracty{\ancy}{\pgfpointorigin}%
 \advance\ancx by -0.05cm%
 \advance\ancy by 0.25cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-\savedanchor\southpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\southwestpoint{%
@@ -2138,18 +2610,20 @@
 \pgfpoint{\ancx}{\ancy}%
 }
 \anchor{center}{\pgfpointorigin}
-\anchor{north}{\northpoint}
-\anchor{south}{\southpoint}
 \anchor{east}{\eastpoint}
-\anchor{northwest}{\northeastpoint}
-\anchor{southwest}{\southeastpoint}
+\anchor{northwest}{\northwestpoint}
+\anchor{southwest}{\southwestpoint}
 \anchor{text}{\textpoint}
 \anchorborder{%
 \newdimen\@tempdimxa
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.30cm}} 
+%    \end{macrocode}
+% \emph{TODO}: need to better calculate the border
+%    \begin{macrocode}
 }
 \backgroundpath{
 %% right
@@ -2161,6 +2635,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{0.035cm}{0.215cm}}
 \pgfpathlineto{\pgfpoint{0.215cm}{0.035cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -2177,7 +2652,8 @@
 %
 %
 %
-% The |switchthreeHLd| shape is a switch with three contacts, oriented horizontally, with single contact at right and switch downward.
+% The |switchthreeHLd| shape is a switch with three contacts, oriented 
+% horizontally, with single contact at right and switch downward.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{switchthreeHLd}{
@@ -2199,14 +2675,6 @@
 \advance\ancx by 0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
-\savedanchor\northpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by 0.30cm%
-\pgfpoint{\ancx}{\ancy}%
-}
 \savedanchor\northwestpoint{%
 \newdimen\ancx%
 \newdimen\ancy%
@@ -2214,14 +2682,6 @@
 \pgfextracty{\ancy}{\pgfpointorigin}%
 \advance\ancx by -0.05cm%
 \advance\ancy by 0.25cm%
-\pgfpoint{\ancx}{\ancy}%
-}
-\savedanchor\southpoint{%
-\newdimen\ancx%
-\newdimen\ancy%
-\pgfextractx{\ancx}{\pgfpointorigin}%
-\pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by -0.30cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\southwestpoint{%
@@ -2234,18 +2694,20 @@
 \pgfpoint{\ancx}{\ancy}%
 }
 \anchor{center}{\pgfpointorigin}
-\anchor{north}{\northpoint}
-\anchor{south}{\southpoint}
 \anchor{east}{\eastpoint}
-\anchor{northwest}{\northeastpoint}
-\anchor{southwest}{\southeastpoint}
+\anchor{northwest}{\northwestpoint}
+\anchor{southwest}{\southwestpoint}
 \anchor{text}{\textpoint}
 \anchorborder{%
 \newdimen\@tempdimxa
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.30cm}{0.30cm}} %%@@TODO: need to better calculate the border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.30cm}{0.30cm}} 
+%    \end{macrocode}
+% \emph{TODO}: need to better calculate the border
+%    \begin{macrocode}
 }
 \backgroundpath{
 %% right
@@ -2257,6 +2719,7 @@
 %% switch
 \pgfpathmoveto{\pgfpoint{0.035cm}{-0.215cm}}
 \pgfpathlineto{\pgfpoint{0.215cm}{-0.035cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -2294,7 +2757,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.1cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.1cm}{0.1cm}}
 }
 \backgroundpath{
 %
@@ -2305,6 +2769,7 @@
 %
 \pgfpathmoveto{\pgfpointpolar{135}{0.1cm}}
 \pgfpathlineto{\pgfpointpolar{315}{0.1cm}}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -2342,7 +2807,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.1cm}{0.1cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.1cm}{0.1cm}}
 }
 \backgroundpath{
 %
@@ -2385,7 +2851,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
 }
 \backgroundpath{
 %% bulb
@@ -2440,7 +2907,7 @@
 \pgfpathlineto{\pgfpoint{1.4665cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{+0.383cm}{-1.2835cm}}
 \pgfpathlineto{\pgfpoint{+0.383cm}{-2.7cm}}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %% base of filament
 \pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
 \pgfpathlineto{\pgfpoint{-0.2cm}{-6.1cm}}
@@ -2469,7 +2936,8 @@
 %
 %
 %
-% The |lightbulbfilled| shape is a line drawing of an incandescent light bulb with the bulb filled in with a gray color
+% The |lightbulbfilled| shape is a line drawing of an incandescent light bulb 
+% with the bulb filled in with a gray color
 %
 %    \begin{macrocode}
 \pgfdeclareshape{lightbulbfilled}{
@@ -2487,7 +2955,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
 }
 \backgroundpath{
 %%
@@ -2518,7 +2987,7 @@
 \pgfpathlineto{\pgfpoint{1.4665cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{+0.383cm}{-1.2835cm}}
 \pgfpathlineto{\pgfpoint{+0.383cm}{-2.7cm}}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfsetfillcolor{gray}
 \pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
@@ -2546,7 +3015,7 @@
 %%
 \pgfpathmoveto{\pgfpoint{-1.3cm}{-3.4cm}}
 \pgfpathlineto{\pgfpoint{1.3cm}{-2.7cm}}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfsetfillcolor{black}
 \pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
@@ -2586,7 +3055,8 @@
 %
 %
 %
-% The |lightbulbfilled| shape is a line drawing of an incandescent light bulb with the bulb filled in with the current color
+% The |lightbulbfilled| shape is a line drawing of an incandescent light bulb 
+% with the bulb filled in with the current color
 %
 %    \begin{macrocode}
 \pgfdeclareshape{lightbulbfilledlit}{
@@ -2604,7 +3074,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{1.5cm}{6.1cm}} %%@@TODO: fix border
 }
 \backgroundpath{
 %%
@@ -2616,14 +3087,14 @@
 \pgfpathlineto{\pgfpoint{-0.383cm}{-1.2835cm}}
 \pgfpathlineto{\pgfpoint{-1.4665cm}{0cm}}
 \pgfpathlineto{\pgfpoint{-1.4665cm}{0.2cm}}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfsetstrokecolor{gray}
 \pgfpathmoveto{\pgfpoint{1.4665cm}{0.2cm}}
 \pgfpathlineto{\pgfpoint{1.4665cm}{0.0cm}}
 \pgfpathlineto{\pgfpoint{+0.383cm}{-1.2835cm}}
 \pgfpathlineto{\pgfpoint{+0.383cm}{-2.7cm}}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfsetfillcolor{gray}
 \pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
@@ -2651,7 +3122,7 @@
 %%
 \pgfpathmoveto{\pgfpoint{-1.3cm}{-3.4cm}}
 \pgfpathlineto{\pgfpoint{1.3cm}{-2.7cm}}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfsetfillcolor{black}
 \pgfpathmoveto{\pgfpoint{-1.3cm}{-5.5cm}}
@@ -2690,7 +3161,7 @@
 \pgfpatharc{180}{0}{0.25cm}
 \pgfpatharc{0}{-180}{0.10cm}%2.4
 \pgfpatharc{180}{0}{0.25cm}%2.9
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfsetfillopacity{0.60};
 \pgfpathmoveto{\pgfpoint{-1.3cm}{-2.7cm}}
@@ -2732,7 +3203,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
 }
 \backgroundpath{
 %%
@@ -2740,11 +3212,11 @@
 \pgfsetlinewidth{0.25mm}
 \pgfpathmoveto{\pgfpoint{-0.25cm}{-0.25cm}}
 \pgfpathlineto{\pgfpoint{0.25cm}{0.25cm}}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfpathmoveto{\pgfpoint{0.25cm}{-0.25cm}}
 \pgfpathlineto{\pgfpoint{-0.25cm}{0.25cm}}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \endpgfscope
 }
@@ -2787,11 +3259,11 @@
 %%%
 %%\pgfpathmoveto{\pgfpoint{-0.25cm}{-0.25cm}}
 %%\pgfpathlineto{\pgfpoint{0.25cm}{0.25cm}}
-%%\pgfusepath{draw}
+%%\pgfusepath{stroke}
 %%%
 %%\pgfpathmoveto{\pgfpoint{0.25cm}{-0.25cm}}
 %%\pgfpathlineto{\pgfpoint{-0.25cm}{0.25cm}}
-%%\pgfusepath{draw}
+%%\pgfusepath{stroke}
 %%%
 %%\endpgfscope
 %%}
@@ -2812,7 +3284,8 @@
 %
 %
 %
-% The |cannon| shape is a cannon on a pedestal, used for demonstrating Newtonian gravity and orbits
+% The |cannon| shape is a cannon on a pedestal, used for demonstrating 
+% Newtonian gravity and orbits
 %
 %    \begin{macrocode}
 \pgfdeclareshape{cannon}{
@@ -2848,7 +3321,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{2.0cm}{1.0cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{2.0cm}{1.0cm}}
 }
 \foregroundpath{
 %%
@@ -2890,7 +3364,9 @@
 %
 %
 %
-% The |eyeballleft| shape is an eye looking to the left, used for demonstrating an observer looking at an object or source of light. The color of the iris can be specified by the user
+% The |eyeballleft| shape is an eye looking to the left, used for demonstrating 
+% an observer looking at an object or source of light. The color of the iris 
+% can be specified by the user.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{eyeballleft}{
@@ -2910,7 +3386,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{1.0cm}{0.25cm}}
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{1.0cm}{0.30cm}}
 }
 \backgroundpath{
 %% the iris in the user's color
@@ -2935,28 +3412,32 @@
 \pgfsetlinewidth{0.15mm}
 \pgfpathmoveto{\pgfpoint{-0.0075cm}{0}}
 \pgfpatharc{180}{120}{0.25cm}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfpathmoveto{\pgfpoint{-0.0075cm}{0}}
 \pgfpatharc{180}{240}{0.25cm}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
 \pgfsetlinewidth{0.50mm}
-\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}{\pgfpointpolar{120}{0.25cm}}}
+\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}
+{\pgfpointpolar{120}{0.25cm}}}
 \pgfpatharc{70}{75}{3cm}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
-\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}{\pgfpointpolar{120}{0.25cm}}}
+\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}
+{\pgfpointpolar{120}{0.25cm}}}
 \pgfpatharc{70}{60}{3cm}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
-\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}{\pgfpointpolar{240}{0.25cm}}}
+\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}
+{\pgfpointpolar{240}{0.25cm}}}
 \pgfpatharc{290}{285}{3cm}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 %%
-\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}{\pgfpointpolar{240}{0.25cm}}}
+\pgfpathmoveto{\pgfpointadd{\pgfpoint{0.2425cm}{0}}
+{\pgfpointpolar{240}{0.25cm}}}
 \pgfpatharc{290}{300}{3cm}
-\pgfusepath{draw}
+\pgfusepath{stroke}
 }
 }
 %    \end{macrocode}
@@ -2973,7 +3454,8 @@
 %
 %
 %
-% The |sun| shape is an dark yellow circle with lighter yellow points around the edge
+% The |sun| shape is an dark yellow circle with lighter yellow points around 
+% the edge.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{sun}{
@@ -2982,7 +3464,7 @@
 \backgroundpath{
 \pgfsetfillcolor{yellow!80!black}
 \pgfpathmoveto{\pgfpointpolar{90}{0.5cm}}
-\pgfpathlineto{\pgfpointpolar{90}{0.4cm}}
+\pgfpathlineto{\pgfpointpolar{99}{0.4cm}}
 \pgfpathlineto{\pgfpointpolar{108}{0.5cm}}
 \pgfpathlineto{\pgfpointpolar{117}{0.4cm}}
 \pgfpathlineto{\pgfpointpolar{126}{0.5cm}}
@@ -3021,19 +3503,19 @@
 \pgfpathlineto{\pgfpointpolar{ 63}{0.4cm}}
 \pgfpathlineto{\pgfpointpolar{ 72}{0.5cm}}
 \pgfpathlineto{\pgfpointpolar{ 81}{0.4cm}}
-\pgfpathlineto{\pgfpointpolar{ 90}{0.5cm}}
 \pgfpathclose
 \pgfusepath{fill}
-\pgfsetfillcolor{yellow!70!black}
-\pgfpathcircle{\pgfpointorigin}{0.4cm}%
-\pgfusepath{fill}%
+\colorlet{tikz@ball}{yellow}
+\pgfpathcircle{\pgfpointorigin}{0.4cm}
+\pgfshadepath{ball}{0}
 }
 \anchorborder{%
 \newdimen\@tempdimxa
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.50cm}{0.50cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.50cm}{0.50cm}}
 }
 \savedanchor\textpoint{% manual 1035
     \pgf@x=-.5\wd\pgfnodeparttextbox % width of the box
@@ -3056,20 +3538,20 @@
     \pgf@y=0.0pt % width of the box
   }%
 \savedanchor\northeastpoint{% manual 1035
-    \pgf@x=0.50cm % width of the box
-    \pgf@y=0.50cm % height of the box
+    \pgf@x=0.3536cm % width of the box
+    \pgf@y=0.3536cm % height of the box
   }%
 \savedanchor\southeastpoint{% manual 1035
-    \pgf@x=0.50cm % width of the box
-    \pgf@y=-0.50cm % height of the box
+    \pgf@x=0.3536cm % width of the box
+    \pgf@y=-0.3536cm % height of the box
   }%
 \savedanchor\northwestpoint{% manual 1035
-    \pgf@x=-0.50cm % width of the box
-    \pgf@y=0.50cm % height of the box
+    \pgf@x=-0.3536cm % width of the box
+    \pgf@y=0.3536cm % height of the box
   }%
 \savedanchor\southwestpoint{% manual 1035
-    \pgf@x=-0.50cm % height of the box
-    \pgf@y=-0.50cm % width of the box
+    \pgf@x=-0.3536cm % height of the box
+    \pgf@y=-0.3536cm % width of the box
   }%
 \anchor{base}{\pgfpointorigin}
 \anchor{center}{\pgfpointorigin}
@@ -3097,7 +3579,7 @@
 %
 %
 %
-% The |electron| shape is an light cyan ball with a `-' in the middle
+% The |electron| shape is an light cyan ball with a `-' in the middle.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{electron}{
@@ -3154,7 +3636,8 @@
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
 }
 \backgroundpath{
 \pgfscope
@@ -3180,7 +3663,7 @@
 %
 %
 %
-% The |proton| shape is a red ball with a `+' in the middle
+% The |proton| shape is a red ball with a `+' in the middle.
 %
 %    \begin{macrocode}
 \pgfdeclareshape{proton}{
@@ -3233,19 +3716,18 @@
 \anchor{south west}{\southwestpoint}
 \anchor{north west}{\northwestpoint}
 \anchorborder{%
-% Call a function that computes a border point. Since this
-% function will modify dimensions like \pgf@x, we must move them to
-% other dimensions.
 \newdimen\@tempdimxa
 \newdimen\@tempdimya
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
-\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}{\pgfpoint{0.25cm}{0.25cm}}
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
 }
 \backgroundpath{
 \pgfscope
 \pgfpathcircle{\pgfpointorigin}{0.25cm}
-%% color tikz@ball is used internally by tikz to color the ball. We therefore have to adjust that color
+%% color tikz@ball is used internally by tikz to color the ball. 
+%% We therefore have to adjust that color.
 \colorlet{tikz@ball}{red!90!white}
 \pgfshadepath{ball}{0}
 \pgfusepath{}
@@ -3269,217 +3751,275 @@
 % \begin{macro}{\gfxelectron}
 % The |\gfxelectron| macro draws an electron symbol (electron) at the position specified by \meta{position}. The position is not saved.
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxelectron}[1]{\node[electron] at (#1) { };}
+\DeclareRobustCommand{\gfxelectron}[1]%
+{\node[electron] at (#1) { };}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxproton}
 % The |\gfxproton| macro draws a proton symbol (proton) at the position specified by \meta{position}. The position is not saved.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxproton}[1]{\node[proton] at (#1) { };}
+\DeclareRobustCommand{\gfxproton}[1]%
+{\node[proton] at (#1) { };}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxelectronrel}
 % The |\gfxelectronrel| macro draws an electron symbol (electron) at the position specified by \meta{position} and then offset by \meta<offset>. The position is not saved.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxelectronrel}[2]{\node[electron] at ($(#1)+(#2)$) { };}
+\DeclareRobustCommand{\gfxelectronrel}[2]%
+{\node[electron] at ($(#1)+(#2)$) { };}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxprotonrel}
 % The |\gfxprotonrel| macro draws a proton symbol (proton) at the position specified by \meta{position} and then offset by \meta<offset>. The position is not saved.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxprotonrel}[2]{\node[proton] at ($(#1)+(#2)$) { };}
+\DeclareRobustCommand{\gfxprotonrel}[2]%
+{\node[proton] at ($(#1)+(#2)$) { };}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxcapacitorH}
 % The |\gfxcapacitorH| macro draws a horizontally oriented capacitor (capacitorH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxcapacitorH}[2]{\node[draw, white, line width = 0.25mm, shape=capacitorH, label={[white] below:#2}] at (#1) { };}
+\DeclareRobustCommand{\gfxcapacitorH}[2]%
+{\node[draw, white, line width = 0.25mm,
+ shape=capacitorH, label={[white] below:#2}] at (#1) { };}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxcapacitorV}
 % The |\gfxcapacitorV| macro draws a vertically oriented capacitor (capacitorV) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxcapacitorV}[2]{\node[draw, white, line width = 0.25mm, shape=capacitorV, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxcapacitorV}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=capacitorV, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxcellHR}
 % The |\gfxcellHR| macro draws a cell oriented horizontally with the positive side to the right (cellHR) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxcellHR}[2]{\node[draw, white, line width = 0.25mm, shape=cellHR, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxcellHR}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=cellHR, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxcellHL}
 % The |\gfxcellHL| macro draws a cell oriented horizontally with the positive side to the left (cellHL) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxcellHL}[2]{\node[draw, white, line width = 0.25mm, shape=cellHL, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxcellHL}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=cellHL, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxcellVU}
 % The |\gfxcellVU| macro draws a cell oriented vertically with the positive side upward (cellVU) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxcellVU}[2]{\node[draw, white, line width = 0.25mm, shape=cellVU, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxcellVU}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=cellVU, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxcellVD}
 % The |\gfxcellVD| macro draws a cell oriented vertically with the positive side downward (cellVD) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxcellVD}[2]{\node[draw, white, line width = 0.25mm, shape=cellVD, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxcellVD}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=cellVD, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxresistorH}
 % The |\gfxresistorH| macro draws a horizontally oriented resistor (resistorH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxresistorH}[2]{\node[draw, white, line width = 0.25mm, shape=resistorH, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxresistorH}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=resistorH, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxresistorV}
 % The |\gfxresistorV| macro draws a vertically oriented resistor (resistorV) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxresistorV}[2]{\node[draw, white, line width = 0.25mm, shape=resistorV, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxresistorV}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=resistorV, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxinductorH}
 % The |\gfxinductorH| macro draws a horizontally oriented inductor (inductorH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxinductorH}[2]{\node[draw, white, line width = 0.25mm, shape=inductorH, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxinductorH}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=inductorH, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxinductorV}
 % The |\gfxinductorV| macro draws a vertically oriented inductor (inductorV) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxinductorV}[2]{\node[draw, white, line width = 0.25mm, shape=inductorV, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxinductorV}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=inductorV, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchtwoH}
 % The |\gfxswitchtwoH| macro draws a two position, horizontal switch (switchtwoH) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchtwoH}[2]{\node[draw, white, line width = 0.25mm, shape=switchtwoH, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchtwoH}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchtwoH, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchtwoV}
 % The |\gfxswitchtwoV| macro draws a two position, vertical switch (switchtwoV) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchtwoV}[2]{\node[draw, white, line width = 0.25mm, shape=switchtwoV, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchtwoV}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchtwoV, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchthreeVDr}
 % The |\gfxswitchthreeVDr| macro draws a three position, vertical switch with the input on the top and switch initially right (switchthreeVDr) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchthreeVDr}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeVDr, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchthreeVDr}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchthreeVDr, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchthreeVDl}
 % The |\gfxswitchthreeVDl| macro draws a three position, vertical switch with the input on the top and switch initially left (switchthreeVDl) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchthreeVDl}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeVDl, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchthreeVDl}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchthreeVDl, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchthreeVUr}
 % The |\gfxswitchthreeVUr| macro draws a three position, vertical switch with the input on the bottom and switch initially right (switchthreeVUr) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchthreeVUr}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeVUr, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchthreeVUr}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchthreeVUr, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchthreeVUl}
 % The |\gfxswitchthreeVUl| macro draws a three position, vertical switch with the input on the bottom and switch initially left (switchthreeVUl) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchthreeVUl}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeVUl, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchthreeVUl}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchthreeVUl, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchthreeHRu}
 % The |\gfxswitchthreeHRu| macro draws a three position, horizontal switch with the input on the left and switch initially up (switchthreeHRu) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchthreeHRu}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeHRu, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchthreeHRu}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchthreeHRu, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchthreeHRd}
 % The |\gfxswitchthreeHRd| macro draws a three position, horizontal switch with the input on the left and switch initially down (switchthreeHRd) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchthreeHRd}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeHRd, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchthreeHRd}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchthreeHRd, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchthreeHLu}
 % The |\gfxswitchthreeHLu| macro draws a three position, horizontal switch with the input on the right and switch initially up (switchthreeHLu) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchthreeHLu}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeHLu, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchthreeHLu}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchthreeHLu, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxswitchthreeHLd}
 % The |\gfxswitchthreeHLd| macro draws a three position, horizontal switch with the input on the right and switch initially down (switchthreeHLd) at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the switch is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxswitchthreeHLd}[2]{\node[draw, white, line width = 0.25mm, shape=switchthreeHLd, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxswitchthreeHLd}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=switchthreeHLd, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxvoltmeter}
 % The |\gfxvoltmeter| macro draws an voltmeter (voltmeter) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the voltmeter is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxvoltmeter}[2]{\node[white,line width=0.25mm,voltmeter, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxvoltmeter}[2]%
+{\node[white,line width=0.25mm,voltmeter,
+ label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxammeter}
 % The |\gfxammeter| macro draws an ammeter (ammeter) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the ammeter is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxammeter}[2]{\node[white,line width=0.25mm,ammmeter, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxammeter}[2]%
+{\node[white,line width=0.25mm,ammmeter, 
+label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxdcsource}
 % The |\gfxdcsource| macro draws an DC source (DCsource) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the DC source is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxdcsource}[2]{\node[draw, white, line width = 0.25mm, shape=DCsource, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxdcsource}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=DCsource, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxacsource}
 % The |\gfxacsource| macro draws an AC source (ACsource) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the AC source is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxacsource}[2]{\node[draw, white, line width = 0.25mm, shape=ACsource, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxacsource}[2]%
+{\node[draw, white, line width = 0.25mm, 
+shape=ACsource, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxvectout}
 % The |\gfxvectin| macro draws ``outward'' vector at the location specified by \meta{position}.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxvectout}[1]{\node[yellow, line width = 0.25mm, shape=vectIn] at (#1) {};}
+\DeclareRobustCommand{\gfxvectout}[1]%
+{\node[yellow, line width = 0.25mm, 
+shape=vectIn] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxvectin}
 % The |\gfxvectin| macro draws ``inward'' vector at the location specified by \meta{position}.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxvectin}[1]{\node[yellow, line width = 0.25mm, shape=vectOut] at (#1) {}}
+\DeclareRobustCommand{\gfxvectin}[1]%
+{\node[yellow, line width = 0.25mm, 
+shape=vectOut] at (#1) {}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\gfxtransformerH}
 % The |\gfxtransformerH| macro draws a horizontal transformer (transformerH) shape at the position specified by \meta{position} and with the label \meta{label} below the shape. The coordinate of the transformer is not saved, so it can't be easily connected to a circuit when using this macro.
 %
 %    \begin{macrocode}
-\DeclareRobustCommand{\gfxtransformerH}[2]{\node[draw, white, line width = 0.25mm, shape=transformerH, label={[white] below:#2}] at (#1) {};}
+\DeclareRobustCommand{\gfxtransformerH}[2]%
+{\node[draw, white, line width = 
+0.25mm, shape=transformerH, label={[white] below:#2}] at (#1) {};}
 %    \end{macrocode}
 % \end{macro}
 % \Finale

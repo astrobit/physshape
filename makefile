@@ -1,9 +1,6 @@
 files=$(patsubst %.dtx,%.pdf,$(wildcard *.dtx))
+pkgname=$(patsubst %.dtx,%,$(wildcard *.dtx))
 all: $(files)
-
-
-%.dtx: %.ins
-	latex $<
 
 %.pdf: %.dtx
 	-rm $(patsubst %.dtx,%.sty,$<)
@@ -25,3 +22,18 @@ clean:
 	-rm *.nav
 	-rm *.idx
 	-rm *.sty
+
+localinstall: all
+	mkdir -p /usr/share/texlive/texmf-local/tex/latex/$(pkgname)
+	mkdir -p /usr/share/texlive/texmf-local/doc/latex/$(pkgname)
+	cp $(pkgname).sty /usr/share/texlive/texmf-local/tex/latex/$(pkgname)/.
+	cp $(pkgname).pdf /usr/share/texlive/texmf-local/doc/latex/$(pkgname)/.
+	texhash
+
+distinstall: all
+	mkdir -p /usr/share/texlive/texmf-dist/tex/latex/$(pkgname)
+	mkdir -p /usr/share/texlive/texmf-dist/doc/latex/$(pkgname)
+	cp $(pkgname).sty /usr/share/texlive/texmf-dist/tex/latex/$(pkgname)/.
+	cp $(pkgname).pdf /usr/share/texlive/texmf-dist/doc/latex/$(pkgname)/.
+	texhash
+

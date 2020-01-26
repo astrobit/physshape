@@ -22,7 +22,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[1994/06/01]
 %<package> \ProvidesPackage{physshape}
 %<*package>
-    [2020/01/22 v1.0 Physics and astronomy shape package]
+    [2020/01/22 v1.0.1 Physics and astronomy shape package]
 %</package>
 %<package>\RequirePackage{tikz}
 %<package>\ProcessOptions\relax
@@ -33,10 +33,11 @@
 \usepackage{xcolor}
 \usepackage{mdframed}
 \usepackage{physshape}
+\usepackage[backref]{hyperref}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
-%\OnlyDescription
+\OnlyDescription
 \begin{document}
 \DocInput{physshape.dtx}
 \PrintChanges
@@ -64,12 +65,29 @@
 %   Right brace   \}     Tilde         \~}
 %
 % \changes{v1.0}{2020/01/22}{Initial version}
+% \changes{v1.0.1}{2020/01/22}{Added better indexing and hyperref}
 %
 % \GetFileInfo{physsymb.dtx}
 % \def\fileversion{v1.0}
 % \def\filedate{2020/01/22}
 %
-% \DoNotIndex{\newcommand,\newenvironment,\DeclareRobustCommand,\pgfdeclareshape,\savedanchor,\newdimen,\pgfextractx,\pgfpointorigin,\advance,\wd,dp,\ht,\pgfnodeparttextbox,\pgfpoint,\anchor,\anchorborder,\@tempdimxa,\@tempdimya,\pgf@x,\pgf@y,\pgfpointborderrectangle,\pgfpointborderellipse,\backgroundpath,\forgroundpath,\pgfpathmoveto,\pgfpathlineto,\pgfpatharcto,\pgfpathsine,\pgfpathcssine,\pgfpathcircle,\colorlet,\pgfshadepath,\pgfusepath,\pgfsetfillcolor,\pgfsetstrokecolor,\pgfsetcolor,\pgftext,\pgfscope,\endpgfscope,\pgfpathclose,\pgfsetlinewidth,\color,\tiny,\small,\footnotesize,\left,\right,\textbf,\mathrm}
+% \DoNotIndex{\newcommand,\newenvironment,\DeclareRobustCommand}
+% \DoNotIndex{\pgfdeclareshape,\savedanchor,\newdimen,\pgfextractx}
+% \DoNotIndex{\pgfpointorigin,\advance,\wd,dp,\ht,\pgfnodeparttextbox}
+% \DoNotIndex{\pgfpoint,\anchor,\anchorborder,\@tempdimxa,\@tempdimya,\pgf@x}
+% \DoNotIndex{\pgf@y,\pgfpointborderrectangle,\pgfpointborderellipse}
+% \DoNotIndex{\backgroundpath,\forgroundpath,\pgfpathmoveto,\pgfpathlineto}
+% \DoNotIndex{\pgfpatharc,\pgfpatharcto,\pgfpathsine,\pgfpathcssine,\colorlet}
+% \DoNotIndex{\pgfshadepath,\pgfusepath,\pgfsetfillcolor,\pgfsetstrokecolor}
+% \DoNotIndex{\pgfsetcolor,\pgftext,\pgfscope,\endpgfscope,\pgfpathclose}
+% \DoNotIndex{\pgfsetlinewidth,\color,\tiny,\small,\footnotesize,\left,\right}
+% \DoNotIndex{\textbf,\mathrm,\pgfextractx,\pgfextracty,\northpoint,\eastpoint}
+% \DoNotIndex{\westpoint,\southpoint,\northwestpoint,\northeastpoint}
+% \DoNotIndex{\southeastpoint,\southwestpoint,\textpoint,\nodeparts}
+% \DoNotIndex{\foregroundpath,\backgroundpath,\ancx,\ancy,\node,\draw}
+% \DoNotIndex{\pgfpathcosine,\pgfpathsine,\pgfpointpolar,\pgfpointadd}
+% \DoNotIndex{\pgfsetfillopacity,\pgfpathcircle}
+%
 %
 %\newcommand{\NSmacro}[2]{% \DescribeMacro{#1}%
 % The |#1| shape is #2.%
@@ -164,38 +182,60 @@
 % \subsection{Circuit Symbols}
 % \subsubsection{Cells}
 %
+% \index{Circuit Symbols>Cells|usage(}
 % \NSmacro{cellVU}{a cell oriented vertically with the positive terminal upward}
 % \NSmacro{cellVD}{a cell oriented vertically with the positive terminal downward}
 % \EWmacro{cellHL}{a cell oriented horizontally with the positive terminal to the left}
 % \EWmacro{cellHR}{a cell oriented horizontally with the positive terminal to the right}
+% \index{Circuit Symbols>Cells|usage)}
+%
 % \subsubsection{Capacitors}
 %
+% \index{Circuit Symbols>Capacitors|usage(}
 % \NSmacro{capacitorV}{a capacitor oriented vertically}
 % \EWmacro{capacitorH}{a capacitor oriented horizontally}
+% \index{Circuit Symbols>Capacitors|usage)}
 %
 % \subsubsection{Resistors}
 %
+% \index{Circuit Symbols>Resistors|usage(}
 % \NSmacro{resistorV}{a resistor oriented vertically}
 % \EWmacro{resistorH}{a resistor oriented horizontally}
+% \index{Circuit Symbols>Resistors|usage)}
 %
 % \subsubsection{Inductors}
 %
+% \index{Circuit Symbols>Inductors|usage(}
 % \NSmacro{inductorV}{an inductor oriented vertically}
 % \EWmacro{inductorH}{an inductor oriented horizontally}
+% \index{Circuit Symbols>Inductors|usage)}
 %
 % \subsubsection{Sources}
 %
+% \index{Circuit Symbols>Sources|usage(}
+% \index{Circuit Symbols>Sources>AC|usage(}
 % \NEWSmacro{ACsource}{an AC source}
+% \index{Circuit Symbols>Sources>AC|usage)}
+% \index{Circuit Symbols>Sources>DC|usage(}
 % \NEWSmacro{DCsource}{a DC source}
+% \index{Circuit Symbols>Sources>DC|usage)}
+% \index{Circuit Symbols>Sources|usage)}
 %
 % \subsubsection{Meters}
 %
+% \index{Circuit Symbols>Meters|usage(}
+% \index{Circuit Symbols>Meters>Ammeter|usage(}
 % \NEWSmacro{voltmeter}{a voltmeter}
+% \index{Circuit Symbols>Meters>Ammeter|usage)}
+% \index{Circuit Symbols>Meters>Voltmeter|usage(}
 % \NEWSmacro{ammeter}{an ammeter}
+% \index{Circuit Symbols>Meters>Voltmeter|usage)}
+% \index{Circuit Symbols>Meters|usage)}
 %
 % \subsubsection{Transformers}
 %
 
+% \index{Circuit Symbols>Transformers|usage(}
 %\DescribeMacro{transformerH}%
 % The |transformerH| shape is drawing of a transsformer circuit symbol,
 % oriented horizontally.
@@ -257,14 +297,18 @@
 %   \fill[red] (n1.center) circle (0.05cm) node[right] {center};
 % \end{verbatim}
 % \end{mdframed}
-
+% \index{Circuit Symbols>Transformers|usage)}
 %
 % \subsection{Switches}
 %
+% \index{Circuit Symbols>Switches|usage(}
+% \index{Circuit Symbols>Switches>SPST|usage(}
 
 % \NSmacro{switchtwoV}{a single contact (SPST) switch oriented vertically}
 % \EWmacro{switchtwoH}{a single contact (SPST) switch oriented horizontally}
+% \index{Circuit Symbols>Switches>SPST|usage)}
 
+% \index{Circuit Symbols>Switches>SPDT|usage(}
 %\DescribeMacro{switchthreeVDr}%
 % The |switchthreeVDr| shape is drawing of two contact (SPDT) switch oriented 
 % vertically with the single contact upward and the swith to the right.
@@ -497,11 +541,14 @@
 %   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
 % \end{verbatim}
 % \end{mdframed}
+% \index{Circuit Symbols>Switches>SPDT|usage)}
+% \index{Circuit Symbols>Switches|usage)}
 
 
 %
 % \subsection{Other Symbols}
 %
+% \index{Proton|usage(}
 %\DescribeMacro{proton}%
 % The |sun| shape is drawing of a proton.
 % \begin{figure}[H]%
@@ -521,7 +568,9 @@
 %   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
 % \end{verbatim}
 % \end{mdframed}
+% \index{Proton|usage)}
 
+% \index{Electron|usage(}
 %\DescribeMacro{electron}%
 % The |sun| shape is drawing of a electron.
 % \begin{figure}[H]%
@@ -541,7 +590,9 @@
 %   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
 % \end{verbatim}
 % \end{mdframed}
+% \index{Electron|usage)}
 
+% \index{Cannon|usage(}
 %\DescribeMacro{cannon}%
 % The |sun| shape is drawing of a cannon.
 % \begin{figure}[H]%
@@ -561,8 +612,10 @@
 %   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
 % \end{verbatim}
 % \end{mdframed}
+% \index{Cannon|usage)}
 
 
+% \index{Eyeball|usage(}
 %\DescribeMacro{eyeballleft}%
 % The |sun| shape is drawing of an eye.
 % \begin{figure}[H]%
@@ -584,7 +637,9 @@
 %   \fill[red] (n1.center) circle (0.05cm) node[left] {center};%
 % \end{verbatim}
 % \end{mdframed}
+% \index{Eyeball|usage)}
 
+% \index{Sun|usage(}
 %\DescribeMacro{sun}%
 % The |sun| shape is drawing of a star shape.
 % \begin{figure}[H]%
@@ -626,6 +681,7 @@
 %   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
 % \end{verbatim}
 % \end{mdframed}
+% \index{Sun|usage)}
 % \StopEventually{}
 %
 % \section{Implementation}

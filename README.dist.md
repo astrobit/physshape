@@ -1,4 +1,4 @@
-# physunits
+# physshape
 A LaTeX package that includes macros for SI, cgs, and some imperial units.
 
 # License
@@ -27,9 +27,9 @@ None.
     makefile                GNU makefile to simplify building and installation on linux
     README.md               This file.
     CHANGELOG.md            List of changes
-    physunits.ins           The installer file
-    physunits.dtx           The package code and documentation
-    physunits.pdf           The package user manual
+    physshape.ins           The installer file
+    physshape.dtx           The package code and documentation
+    physshape.pdf           The package user manual
 ```
 
 # Building the Package
@@ -37,13 +37,13 @@ None.
 1. `make`
 
 ## Otherwise
-1. Run `latex` on `physunits.ins` to create the `.sty` file. e.g. `latex physunits.ins`.
+1. Run `latex` on `physshape.ins` to create the `.sty` file. e.g. `latex physshape.ins`.
 1. The following steps apply only if you want the documentation (recommended).
-  1. Run `latex` on `physunits.dtx` to create the `.pdf` file. e.g. `xelatex physunits.pdf`.
-  1. Run `makeindex` to create the index, e.g. `makeindex -s gind.ist -o physunits.ind physunits.idx`.
-  1. Run `makeindex` to create the change log, e.g. `makeindex -s gglo.ist -o physunits.gls physunits.glo`.
-  1. Run `latex` on `physunits.dtx` to create the `.pdf` file with index and change log. e.g. `xelatex physunits.pdf`.
-  1. Run `latex` on `physunits.dtx` to get the labels sorted out. e.g. `xelatex physunits.pdf`.
+  1. Run `latex` on `physshape.dtx` to create the `.pdf` file. e.g. `xelatex physshape.pdf`.
+  1. Run `makeindex` to create the index, e.g. `makeindex -s gind.ist -o physshape.ind physshape.idx`.
+  1. Run `makeindex` to create the change log, e.g. `makeindex -s gglo.ist -o physshape.gls physshape.glo`.
+  1. Run `latex` on `physshape.dtx` to create the `.pdf` file with index and change log. e.g. `xelatex physshape.pdf`.
+  1. Run `latex` on `physshape.dtx` to get the labels sorted out. e.g. `xelatex physshape.pdf`.
 
 Instructions that might help can be for windows can be found at [this post on StackExchange](https://tex.stackexchange.com/questions/369921/loading-packages-with-ins-and-dtx-files).
 
@@ -51,7 +51,7 @@ Instructions that might help can be for windows can be found at [this post on St
 First build the project as described above.
 
 ## For a single project
-1. Copy the `physunits.sty` into your project where your `.tex` files are located.
+1. Copy the `physshape.sty` into your project where your `.tex` files are located.
 
 ## for all users and projects
 ### Linux / Mac using make and xelatex
@@ -60,10 +60,10 @@ First build the project as described above.
 ### Otherwise
 Instructions that might help can be for windows can be found at [this post on StackExchange](https://tex.stackexchange.com/questions/369921/loading-packages-with-ins-and-dtx-files).
 1. Figure out where your LaTeX local packages are installed.
-1. Create a directory named `physunits` in that location.
+1. Create a directory named `physshape` in that location.
 1. Copy the `.sty` file into the directory you just created.
 1. Figure out where your LaTeX local package documentation is installed.
-1. Create a directory named `physunits` in that location.
+1. Create a directory named `physshape` in that location.
 1. Copy the `.pdf` file into the directory you just created.
 1. Run `texhash` or the equivalent to let LaTeX know the package is there.
 
@@ -74,8 +74,8 @@ Instructions that might help can be for windows can be found at [this post on St
 1. `make localuninstall`
 ### Otherwise
 1. Figure out where your LaTeX local packages are installed.
-1. Delete the directory named `physunits` in that location.
+1. Delete the directory named `physshape` in that location.
 1. Figure out where your LaTeX local package documentation is installed.
-1. Delete the directory named `physunits` in that location.
+1. Delete the directory named `physshape` in that location.
 1. Run `texhash` or the equivalent to let LaTeX know the package is gone.
 

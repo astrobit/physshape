@@ -20,5 +20,7 @@
 ## [1.0.2] - 2020/01/25
 ### Changed
 - Switch compression of tarball to gzip to match requirement for CTAN
+## [1.1.0] - 2020/03/24
+- Added bulbH and bulbV, based on resistorH and resitorV
 
 

@@ -22,7 +22,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[1994/06/01]
 %<package> \ProvidesPackage{physshape}
 %<*package>
-    [2020/01/22 v1.0.1 Physics and astronomy shape package]
+    [2020/01/22 v1.1.0 Physics and astronomy shape package]
 %</package>
 %<package>\RequirePackage{tikz}
 %<package>\ProcessOptions\relax
@@ -202,6 +202,14 @@
 % \NSmacro{resistorV}{a resistor oriented vertically}
 % \EWmacro{resistorH}{a resistor oriented horizontally}
 % \index{Circuit Symbols>Resistors|usage)}
+%
+% \changes{v1.1.0}{2020/03/24}{Added bulbs}
+% \subsubsection{Bulbs}
+%
+% \index{Circuit Symbols>Bulbs|usage(}
+% \NSmacro{bulbV}{a bulb oriented vertically}
+% \EWmacro{bulbH}{a bulb oriented horizontally}
+% \index{Circuit Symbols>Bulbs|usage)}
 %
 % \subsubsection{Inductors}
 %
@@ -1256,6 +1264,154 @@
 \pgfpathlineto{\pgfpoint{0.0cm}{0.15cm}}
 \pgfpathlineto{\pgfpoint{0.0cm}{0.20cm}}
 %
+\pgfusepath{stroke}
+}
+}
+%    \end{macrocode}
+% \end{macro}
+% \changes{v1.1.0}{2020/03/24}{Added bulbH and bulbV code}
+% \begin{macro}{bulbH}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Bulb (H)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |bulbH| shape is a light bulb with horizontal orientation.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{bulbH}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.10cm%
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\advance\ancx by -.5\wd\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.20cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.20cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{west}{\westpoint}
+\anchor{east}{\eastpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.2cm}{0.05cm}}
+}
+\backgroundpath{
+%%
+\pgfpathmoveto{\pgfpoint{-0.20cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.15cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.125cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{-0.075cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{-0.025cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.025cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.075cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.125cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{0.15cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{0.20cm}{0.0cm}}
+%%
+\pgfusepath{stroke}
+\pgfpathcircle{\pgfpointorigin}{0.15cm}%}
+\pgfusepath{stroke}
+}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{bulbV}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Bulb (V)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |bulbV| shape is a resistor with vertical orientation.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{bulbV}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.10cm%
+\advance\ancy by -0.5\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.20cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.20cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchor{text}{\textpoint}
+\anchorborder{
+\newdimen\@tempdimxa%
+\newdimen\@tempdimya%
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.05cm}{0.2cm}}
+}
+\backgroundpath{
+%%
+\pgfpathmoveto{\pgfpoint{0.0cm}{-0.20cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{-0.15cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{-0.125cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{-0.075cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{-0.025cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{0.025cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{0.075cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{0.125cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.15cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.20cm}}
+%
+\pgfusepath{stroke}
+%
+\pgfpathcircle{\pgfpointorigin}{0.15cm}%}
 \pgfusepath{stroke}
 }
 }

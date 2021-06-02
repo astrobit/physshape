@@ -22,7 +22,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[1994/06/01]
 %<package> \ProvidesPackage{physshape}
 %<*package>
-    [2020/01/22 v1.1.0 Physics and astronomy shape package]
+    [2020/01/22 v1.2.0 Physics and astronomy shape package]
 %</package>
 %<package>\RequirePackage{tikz}
 %<package>\ProcessOptions\relax
@@ -66,10 +66,11 @@
 %
 % \changes{v1.0}{2020/01/22}{Initial version}
 % \changes{v1.0.1}{2020/01/22}{Added better indexing and hyperref}
+% \changes{v1.2.0}{2021/06/02}{Added thinLensConvex}
 %
 % \GetFileInfo{physsymb.dtx}
-% \def\fileversion{v1.0}
-% \def\filedate{2020/01/22}
+% \def\fileversion{v1.2.0}
+% \def\filedate{2021/06/02}
 %
 % \DoNotIndex{\newcommand,\newenvironment,\DeclareRobustCommand}
 % \DoNotIndex{\pgfdeclareshape,\savedanchor,\newdimen,\pgfextractx}
@@ -686,6 +687,34 @@
 %   \fill[blue] (n1.south) circle (0.05cm) node[above] {south};%
 %   \fill[blue] (n1.east) circle (0.05cm) node[right] {east};%
 %   \fill[blue] (n1.west) circle (0.05cm) node[left] {west};%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{verbatim}
+% \end{mdframed}
+% \index{Sun|usage)}
+%
+% \index{thinLensConvex|usage(}
+%\DescribeMacro{thinLensConvex}%
+% The |thinLensConvex| shape is drawing of a thin convex lens
+% \begin{figure}[H]%
+% \begin{center}\begin{mdframed}\begin{center}\begin{tikzpicture}%
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] above:thinLensConvex}, thinLensConvex,
+%		lens width = 0.4cm, lens left radius = 3cm,
+%       lens right radius = 5cm, lens height = 4cm] %
+%       (n1) at (0,0) { };%
+%   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
+% \end{tikzpicture}\end{center}\end{mdframed}\end{center}%
+% \caption{\label{fig:gfx:thinLensConvex}The thinLensConvex shape}%
+% \end{figure}%
+% Figure \ref{fig:gfx:thinLensConvex} shows the thinLensConvex shape with the available anchors. %
+% A text anchor is also defined at the center. 
+% \begin{mdframed}[backgroundcolor=orange!25]%
+% \begin{verbatim}
+% 	\node[black, line width=0.5mm,% 
+%       label={[black] above:thinLensConvex}, thinLensConvex,
+%		lens width = 0.4cm, lens left radius = 3cm,
+%       lens right radius = 5cm, lens height = 4cm] %
+%       (n1) at (0,0) { };%
 %   \fill[red] (n1.center) circle (0.05cm) node[right] {center};%
 % \end{verbatim}
 % \end{mdframed}
@@ -3952,6 +3981,74 @@
 }
 %    \end{macrocode}
 % \end{macro}
+%
+% \begin{macro}{thinLensConvex}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Shape: thinLensConvex
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |thinLensConvex| shape is a convex thin lens. By default, it is 3 cm high, 0.1 cm in width, and has a radius of curvature of 9 cm on each face.
+%
+%    \begin{macrocode}
+\tikzset{lens width/.initial=0.1cm}
+\tikzset{lens left radius/.initial=9cm}
+\tikzset{lens right radius/.initial=9cm}
+\tikzset{lens height/.initial=3cm}
+%
+\pgfdeclareshape{thinLensConvex}{
+\savedmacro\@lensHeight{
+        \edef\@lensHeight{\pgfkeysvalueof{/tikz/lens height}}%
+    }
+\savedmacro\@lensWidth{
+        \edef\@lensWidth{\pgfkeysvalueof{/tikz/lens width}}%
+    }
+\savedmacro\@lensRadiusLeft{
+        \edef\@lensRadiusLeft{\pgfkeysvalueof{/tikz/lens left radius}}%
+    }
+\savedmacro\@lensRadiusRight{
+        \edef\@lensRadiusRight{\pgfkeysvalueof{/tikz/lens right radius}}%
+    }
+\saveddimen\@width{
+    % you can't use savedmacros nor savedanchors here (bummer!)
+    \edef\@value{\pgfkeysvalueof{/tikz/lens width}}%
+    \pgfmathsetlength\pgf@x{\@value)}%
+}    
+\saveddimen\@height{
+    % you can't use savedmacros nor savedanchors here (bummer!)
+    \edef\@value{\pgfkeysvalueof{/tikz/lens height}}%
+    \pgfmathsetlength\pgf@x{\@value)}%
+}    
+\saveddimen\@radiusA{
+    % you can't use savedmacros nor savedanchors here (bummer!)
+    \edef\@value{\pgfkeysvalueof{/tikz/lens left radius}}%
+    \pgfmathsetlength\pgf@x{\@value)}%
+}    
+\saveddimen\@radiusB{
+    % you can't use savedmacros nor savedanchors here (bummer!)
+    \edef\@value{\pgfkeysvalueof{/tikz/lens right radius}}%
+    \pgfmathsetlength\pgf@x{\@value)}%
+}    
+%
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\pgfpointorigin}
+\backgroundpath{
+\pgfpathmoveto{\pgfpoint{0.5*\@width}{0.5*\@height}}
+\pgfpatharc{asin(0.5*\@lensHeight/\@lensRadiusRight)}{-asin(0.5*\@lensHeight/\@lensRadiusRight)}{\@radiusB}
+\pgfpathlineto{\pgfpoint{-0.5*\@width}{-0.5*\@height}}
+\pgfpatharc{180.0 + asin(0.5*\@lensHeight/\@lensRadiusLeft)}{180.0 - asin(0.5*\@lensHeight/\@lensRadiusLeft)}{\@radiusA}
+\pgfpathclose
+\pgfusepath{stroke}
+}
+}
+%    \end{macrocode}
+% \end{macro}
+%
 %
 %
 % \subsection{Macros}

@@ -22,7 +22,7 @@
 %<package>\NeedsTeXFormat{LaTeX2e}[1994/06/01]
 %<package> \ProvidesPackage{physshape}
 %<*package>
-    [2020/01/22 v1.2.0 Physics and astronomy shape package]
+    [2020/12/30 v1.4.0 Physics and astronomy shape package]
 %</package>
 %<package>\RequirePackage{tikz}
 %<package>\ProcessOptions\relax
@@ -66,11 +66,13 @@
 %
 % \changes{v1.0}{2020/01/22}{Initial version}
 % \changes{v1.0.1}{2020/01/22}{Added better indexing and hyperref}
-% \changes{v1.2.0}{2021/06/02}{Added thinLensConvex}
+% \changes{v1.2.0}{2021/06/02}{Aded thinLensConvex}
+% \changes{v1.3.0}{2021/12/27}{Aded Ohmmeter}
+% \changes{v1.4.0}{2021/12/30}{Aded Coulombmeter}
 %
 % \GetFileInfo{physsymb.dtx}
-% \def\fileversion{v1.2.0}
-% \def\filedate{2021/06/02}
+% \def\fileversion{v1.4.0}
+% \def\filedate{2021/12/30}
 %
 % \DoNotIndex{\newcommand,\newenvironment,\DeclareRobustCommand}
 % \DoNotIndex{\pgfdeclareshape,\savedanchor,\newdimen,\pgfextractx}
@@ -233,12 +235,21 @@
 % \subsubsection{Meters}
 %
 % \index{Circuit Symbols>Meters|usage(}
-% \index{Circuit Symbols>Meters>Ammeter|usage(}
-% \NEWSmacro{voltmeter}{a voltmeter}
-% \index{Circuit Symbols>Meters>Ammeter|usage)}
+% \changes{v1.3.0}{2020/12/27}{Corrected index referece for voltmeter and ammeter, which were switched}
 % \index{Circuit Symbols>Meters>Voltmeter|usage(}
-% \NEWSmacro{ammeter}{an ammeter}
+% \NEWSmacro{voltmeter}{a voltmeter}
 % \index{Circuit Symbols>Meters>Voltmeter|usage)}
+% \index{Circuit Symbols>Meters>Ammeter|usage(}
+% \NEWSmacro{ammeter}{an ammeter}
+% \index{Circuit Symbols>Meters>Ammeter|usage)}
+% \changes{v1.3.0}{2020/12/27}{Added Ohmmeter}
+% \index{Circuit Symbols>Meters>Ohmmeter|usage(}
+% \NEWSmacro{ohmmeter}{an Ohmmeter}
+% \index{Circuit Symbols>Meters>Ohmmeter|usage)}
+% \changes{v1.4.0}{2020/12/30}{Added Coulombmeter}
+% \index{Circuit Symbols>Meters>Coulombmeter|usage(}
+% \NEWSmacro{coulombmeter}{an Coulombmeter}
+% \index{Circuit Symbols>Meters>Coulombmeter|usage)}
 % \index{Circuit Symbols>Meters|usage)}
 %
 % \subsubsection{Transformers}
@@ -1176,7 +1187,7 @@
 \newdimen\ancy
 \pgfextractx{\ancx}{\pgfpointorigin}%
 \pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by -0.10cm%
+\advance\ancy by -0.20cm%
 \advance\ancy by -\ht\pgfnodeparttextbox%
 \advance\ancx by -.5\wd\pgfnodeparttextbox%
 \pgfpoint{\ancx}{\ancy}%
@@ -1186,7 +1197,7 @@
 \newdimen\ancy%
 \pgfextractx{\ancx}{\pgfpointorigin}%
 \pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by -0.20cm%
+\advance\ancx by -0.40cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\eastpoint{%
@@ -1194,7 +1205,7 @@
 \newdimen\ancy%
 \pgfextractx{\ancx}{\pgfpointorigin}%
 \pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by 0.20cm%
+\advance\ancx by 0.40cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \anchor{center}{\pgfpointorigin}
@@ -1207,20 +1218,20 @@
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
 \pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
-{\pgfpoint{0.2cm}{0.05cm}}
+{\pgfpoint{0.4cm}{0.1cm}}
 }
 \backgroundpath{
 %%
-\pgfpathmoveto{\pgfpoint{-0.20cm}{0.0cm}}
-\pgfpathlineto{\pgfpoint{-0.15cm}{0.0cm}}
-\pgfpathlineto{\pgfpoint{-0.125cm}{0.05cm}}
-\pgfpathlineto{\pgfpoint{-0.075cm}{-0.05cm}}
-\pgfpathlineto{\pgfpoint{-0.025cm}{0.05cm}}
-\pgfpathlineto{\pgfpoint{0.025cm}{-0.05cm}}
-\pgfpathlineto{\pgfpoint{0.075cm}{0.05cm}}
-\pgfpathlineto{\pgfpoint{0.125cm}{-0.05cm}}
-\pgfpathlineto{\pgfpoint{0.15cm}{0.0cm}}
-\pgfpathlineto{\pgfpoint{0.20cm}{0.0cm}}
+\pgfpathmoveto{\pgfpoint{-0.40cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.30cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{-0.25cm}{0.10cm}}
+\pgfpathlineto{\pgfpoint{-0.15cm}{-0.10cm}}
+\pgfpathlineto{\pgfpoint{-0.05cm}{0.10cm}}
+\pgfpathlineto{\pgfpoint{0.05cm}{-0.10cm}}
+\pgfpathlineto{\pgfpoint{0.15cm}{0.10cm}}
+\pgfpathlineto{\pgfpoint{0.25cm}{-0.10cm}}
+\pgfpathlineto{\pgfpoint{0.30cm}{0.0cm}}
+\pgfpathlineto{\pgfpoint{0.40cm}{0.0cm}}
 %%
 \pgfusepath{stroke}
 }
@@ -1248,7 +1259,7 @@
 \newdimen\ancy
 \pgfextractx{\ancx}{\pgfpointorigin}%
 \pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancx by 0.10cm%
+\advance\ancx by 0.20cm%
 \advance\ancy by -0.5\ht\pgfnodeparttextbox%
 \pgfpoint{\ancx}{\ancy}%
 }
@@ -1257,7 +1268,7 @@
 \newdimen\ancy%
 \pgfextractx{\ancx}{\pgfpointorigin}%
 \pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by 0.20cm%
+\advance\ancy by 0.40cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \savedanchor\southpoint{%
@@ -1265,7 +1276,7 @@
 \newdimen\ancy%
 \pgfextractx{\ancx}{\pgfpointorigin}%
 \pgfextracty{\ancy}{\pgfpointorigin}%
-\advance\ancy by -0.20cm%
+\advance\ancy by -0.40cm%
 \pgfpoint{\ancx}{\ancy}%
 }
 \anchor{center}{\pgfpointorigin}
@@ -1278,20 +1289,20 @@
 \@tempdimxa=\pgf@x
 \@tempdimya=\pgf@y
 \pgfpointborderrectangle{\pgfpoint{\@tempdimxa}{\@tempdimya}}
-{\pgfpoint{0.05cm}{0.2cm}}
+{\pgfpoint{0.10cm}{0.4cm}}
 }
 \backgroundpath{
 %%
-\pgfpathmoveto{\pgfpoint{0.0cm}{-0.20cm}}
-\pgfpathlineto{\pgfpoint{0.0cm}{-0.15cm}}
-\pgfpathlineto{\pgfpoint{0.05cm}{-0.125cm}}
-\pgfpathlineto{\pgfpoint{-0.05cm}{-0.075cm}}
-\pgfpathlineto{\pgfpoint{0.05cm}{-0.025cm}}
-\pgfpathlineto{\pgfpoint{-0.05cm}{0.025cm}}
-\pgfpathlineto{\pgfpoint{0.05cm}{0.075cm}}
-\pgfpathlineto{\pgfpoint{-0.05cm}{0.125cm}}
-\pgfpathlineto{\pgfpoint{0.0cm}{0.15cm}}
-\pgfpathlineto{\pgfpoint{0.0cm}{0.20cm}}
+\pgfpathmoveto{\pgfpoint{0.0cm}{-0.40cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{-0.30cm}}
+\pgfpathlineto{\pgfpoint{0.1cm}{-0.25cm}}
+\pgfpathlineto{\pgfpoint{-0.1cm}{-0.15cm}}
+\pgfpathlineto{\pgfpoint{0.1cm}{-0.05cm}}
+\pgfpathlineto{\pgfpoint{-0.1cm}{0.05cm}}
+\pgfpathlineto{\pgfpoint{0.1cm}{0.15cm}}
+\pgfpathlineto{\pgfpoint{-0.1cm}{0.25cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.30cm}}
+\pgfpathlineto{\pgfpoint{0.0cm}{0.40cm}}
 %
 \pgfusepath{stroke}
 }
@@ -2159,7 +2170,182 @@
 }
 %    \end{macrocode}
 % \end{macro}
+% \changes{v1.3.0}{2021/12/27}{Added ohmmeter}
+% \begin{macro}{ohmmeter}
 %
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Ohmmeter
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |ohmmeter| shape is an ohmmeter.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{ohmmeter}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.5\wd\pgfnodeparttextbox%
+\advance\ancy by -0.25cm
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+%%
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
+}
+%%
+\backgroundpath{
+\pgfpathcircle{\pgfpointorigin}{0.25cm}%
+%    \end{macrocode}
+% get the current color to make sure that the text in the center  matches the 
+% desired stroke color
+%    \begin{macrocode}
+\colorlet{saved}{.}
+\pgftext{\color{saved} $\Omega$}%
+\pgfusepath{stroke}
+}
+}
+%    \end{macrocode}
+% \end{macro}
+%%
+% \changes{v1.4.0}{2021/12/30}{Added coulombmeter}
+% \begin{macro}{coulombmeter}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Shape: Coulombmeter
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+% The |coulombmeter| shape is an Coulombmeter.
+%
+%    \begin{macrocode}
+\pgfdeclareshape{coulombmeter}{
+\savedanchor\textpoint{%
+\newdimen\ancx
+\newdimen\ancy
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.5\wd\pgfnodeparttextbox%
+\advance\ancy by -0.25cm
+\advance\ancy by -\ht\pgfnodeparttextbox%
+\pgfpoint{\ancx}{\ancy}%
+}
+%%
+\savedanchor\northpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\southpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancy by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\eastpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by 0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\savedanchor\westpoint{%
+\newdimen\ancx%
+\newdimen\ancy%
+\pgfextractx{\ancx}{\pgfpointorigin}%
+\pgfextracty{\ancy}{\pgfpointorigin}%
+\advance\ancx by -0.25cm%
+\pgfpoint{\ancx}{\ancy}%
+}
+\anchor{center}{\pgfpointorigin}
+\anchor{text}{\textpoint}
+\anchor{east}{\eastpoint}
+\anchor{west}{\westpoint}
+\anchor{north}{\northpoint}
+\anchor{south}{\southpoint}
+\anchorborder{%
+\newdimen\@tempdimxa
+\newdimen\@tempdimya
+\@tempdimxa=\pgf@x
+\@tempdimya=\pgf@y
+\pgfpointborderellipse{\pgfpoint{\@tempdimxa}{\@tempdimya}}
+{\pgfpoint{0.25cm}{0.25cm}}
+}
+%%
+\backgroundpath{
+\pgfpathcircle{\pgfpointorigin}{0.25cm}%
+%    \end{macrocode}
+% get the current color to make sure that the text in the center  matches the 
+% desired stroke color
+%    \begin{macrocode}
+\colorlet{saved}{.}
+\pgftext{\color{saved} C}%
+\pgfusepath{stroke}
+}
+}
+%    \end{macrocode}
+% \end{macro}
+%%
 % \begin{macro}{switchtwoH}
 %
 %
